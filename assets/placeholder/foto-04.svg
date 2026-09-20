@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Foto pendiente: Tablero y km">
+  <rect width="800" height="600" fill="#E9ECEE"/>
+  <g fill="none" stroke="#C2C8CC" stroke-width="1">
+    <path d="M40 40 h60 M40 40 v60 M760 40 h-60 M760 40 v60 M40 560 h60 M40 560 v-60 M760 560 h-60 M760 560 v-60"/>
+  </g>
+  <g fill="none" stroke="#98A1A7" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,-60) scale(0.86) translate(64,60)">
+    <path d="M212 400 h376 c13 0 24 11 24 24 v152 c0 13-11 24-24 24 h-376 c-13 0-24-11-24-24 v-152 c0-13 11-24 24-24 z" />
+         <path d="M300 500 m-56 0 a56 56 0 1 0 112 0 a56 56 0 1 0 -112 0" />
+         <path d="M500 500 m-56 0 a56 56 0 1 0 112 0 a56 56 0 1 0 -112 0" />
+         <path d="M300 470 v30 h22" />
+  </g>
+  <text x="400" y="150" text-anchor="middle" fill="#6E767C" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="19" letter-spacing="4">FOTO PENDIENTE</text>
+  <text x="400" y="188" text-anchor="middle" fill="#98A1A7" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="15" letter-spacing="2">04 · TABLERO Y KM</text>
+</svg>

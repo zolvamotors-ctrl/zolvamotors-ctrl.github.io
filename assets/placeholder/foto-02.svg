@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Foto pendiente: Lateral">
+  <rect width="800" height="600" fill="#E9ECEE"/>
+  <g fill="none" stroke="#C2C8CC" stroke-width="1">
+    <path d="M40 40 h60 M40 40 v60 M760 40 h-60 M760 40 v60 M40 560 h60 M40 560 v-60 M760 560 h-60 M760 560 v-60"/>
+  </g>
+  <g fill="none" stroke="#98A1A7" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,-60) scale(0.86) translate(64,60)">
+    <path d="M168 486 l40-96 c9-21 29-34 52-34 h280 c23 0 43 13 52 34 l40 96" />
+         <path d="M140 486 h520 c13 0 24 11 24 24 v66 c0 13-11 24-24 24 h-520 c-13 0-24-11-24-24 v-66 c0-13 11-24 24-24 z" />
+         <circle cx="248" cy="590" r="36" /><circle cx="552" cy="590" r="36" />
+         <path d="M330 356 v100 M470 356 v100" />
+  </g>
+  <text x="400" y="150" text-anchor="middle" fill="#6E767C" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="19" letter-spacing="4">FOTO PENDIENTE</text>
+  <text x="400" y="188" text-anchor="middle" fill="#98A1A7" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="15" letter-spacing="2">02 · LATERAL</text>
+</svg>

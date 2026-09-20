@@ -1,0 +1,1045 @@
+/* ============================================================
+   Hoja de estilos del sitio catálogo
+   ------------------------------------------------------------
+   Identidad "ficha técnica de vehículo": grotesca + monoespaciada
+   + reglas finas. Paleta MONOCROMA a propósito: la página convive
+   con fotos de autos de todos los colores, así que la marca no
+   compite. El único color de marca es el azul del logo, y va en dosis
+   mínimas: header, botón primario, foco y enlaces destacados. El verde
+   petróleo quedó reducido a su función de semáforo (--ok): "este dato
+   está en regla", nada más.
+
+     Grafito  #15181B    Papel  #F2F4F5
+     Acero    #98A1A7    Filete  #878D9E
+     Azul marino  #0D1C33 (header)   Azul acento  #1B3A63
+     Verde petróleo  #1E4D45 (solo --ok)
+
+   Todo por custom properties. El sitio se ve SIEMPRE claro: no hay
+   tema oscuro (`color-scheme:light` en :root), así que un color
+   nuevo se define una sola vez, acá, y nunca dentro de una media
+   query.
+   ============================================================ */
+
+:root{
+  /* Sin tema oscuro: el sitio se ve igual en todos los equipos, estén
+     o no en modo oscuro. Además fuerza los controles nativos (inputs,
+     select, barras de scroll) a su versión clara. */
+  color-scheme:light;
+
+  --ground:#F2F4F5;
+  --panel:#FFFFFF;
+  --panel-2:#E9ECEE;
+  --ink:#15181B;
+  --ink-2:#474F55;
+  --ink-3:#626A70;
+  --acero:#98A1A7;
+  --line:#DEE2E4;
+  --line-strong:#C2C8CC;
+  /* Acento = el azul del logo, un punto más claro que el del header para
+     que siga leyendo como acento y no como fondo. --accent-2 es el hover
+     y cae justo en el azul del header. */
+  --accent:#1B3A63;
+  --accent-2:#0D1C33;
+  --accent-soft:#E3E9F1;
+  --accent-ink:#FFFFFF;
+  /* Semáforo. Sigue siendo el verde petróleo: acá el verde ya no dice
+     "marca", dice "este dato está en regla". */
+  --ok:#1E4D45;
+  --ok-soft:#E2EAE7;
+  --warn:#8A5A00;
+  --warn-soft:#F7EFDE;
+  --wa:#1FA855;
+  /* Verde de WhatsApp para botón lleno. Va más oscuro que --wa, que es
+     color de ícono sobre claro: #1FA855 con texto blanco da 3,1:1 y no
+     pasa AA. Estos dan 5,4:1 y 8,0:1. */
+  --wa-solid:#137A47;
+  --wa-solid-2:#0E5D36;
+  /* Header en el azul del logo de los cubrepatentes, con el filete
+     plateado de regla y el texto en blanco. Es el único bloque con
+     color de marca propio: el resto del sitio sigue monocromo.
+     .nav reapunta sus tokens a estos, igual que .pie con los --pie-*. */
+  --nav-bg:#0D1C33;
+  --nav-ink:#FFFFFF;
+  --nav-ink-2:#878D9E;
+  --nav-line:#878D9E;
+  /* Pie oscuro: cierra la página y la separa del contenido. */
+  --pie-bg:#15181B;
+  --pie-ink:#F2F4F5;
+  --pie-ink-2:#AAB2B7;
+  --pie-line:#2C3338;
+  /* Mismo azul del acento, aclarado para el pie oscuro (8,2:1 sobre
+     --pie-bg). Es lo que pinta la Z del pie: si quedaba verde, el mismo
+     logo salía de dos colores según dónde estuviera. */
+  --pie-accent:#8FB4DC;
+  --pie-wa:#3CC06F;
+  --shadow:0 1px 2px rgba(21,24,27,.04), 0 10px 30px -20px rgba(21,24,27,.22);
+  --radius:3px;
+  /* Radio chico para chrome (inputs, badges, reglas) y radio grande para
+     las superficies que el usuario toca: tarjetas y paneles. */
+  --radius-card:12px;
+  --maxw:1180px;
+  --nav-h:64px;
+}
+
+/* ============ BASE ============ */
+*{box-sizing:border-box;}
+[hidden]{display:none!important;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"Archivo",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:16px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+}
+h1,h2,h3,h4{font-family:"Archivo",sans-serif;margin:0;text-wrap:balance;line-height:1.12;letter-spacing:-.02em;}
+p{margin:0;text-wrap:pretty;}
+a{color:inherit;}
+ul,ol{margin:0;padding:0;list-style:none;}
+button,input,select,textarea{font:inherit;color:inherit;}
+img{max-width:100%;height:auto;}
+:where(a,button,input,select,summary){touch-action:manipulation;}
+[id]{scroll-margin-top:calc(var(--nav-h) + 20px);}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;}
+.eyebrow{
+  display:block;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);
+}
+.num{font-variant-numeric:tabular-nums;}
+
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:var(--radius);
+}
+.skip-link:focus{left:16px;top:12px;}
+
+/* ============ LOGOTIPO ============ */
+/* Monograma Z: barras gruesas, diagonal fina. Es el mismo contraste
+   grueso/fino de la serif del wordmark, para que lean como un sistema. */
+.logo-z{flex:none;color:var(--accent);}
+.logo-lockup{display:inline-flex;align-items:center;gap:9px;}
+/* Wordmark en Lora regular. La serif tiene la mayúscula más alta y más
+   mancha por letra que la grotesca: al mismo cuerpo se comía al monograma,
+   así que baja de 25 a 22 px (21 en el nav). Ahí vuelve a dar la relación
+   de altura de mayúscula contra la Z del monograma que tenía el lockup en
+   Jost, ~1,15. Y como las serifas ya traban las letras entre sí, el
+   tracking abre en vez de cerrar: es lo que le da aire al conjunto. El
+   peso queda en 400 —el contraste grueso/fino lo pone la tipografía, no
+   el peso—. */
+.logo-mark{
+  font-family:"Lora",Georgia,"Times New Roman",serif;
+  font-size:22px;font-weight:400;letter-spacing:.025em;
+  color:var(--ink);white-space:nowrap;line-height:1;
+}
+
+/* ============ BUTTONS ============
+   Píldora, con peso. Las reglas finas y los radios de 3px son para las
+   fichas y los paneles —ahí la referencia sigue siendo una hoja de datos—,
+   pero un botón tiene que parecer apretable: relleno, redondo y con algo
+   de relieve. Ningún botón queda transparente. */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:14px 26px;border-radius:999px;border:1px solid transparent;
+  font-weight:600;font-size:14.5px;text-decoration:none;cursor:pointer;line-height:1;
+  letter-spacing:-.005em;white-space:nowrap;
+  transition:background .16s ease, border-color .16s ease, color .16s ease,
+             transform .16s ease, box-shadow .16s ease;
+}
+.btn:active{transform:translateY(1px);}
+
+.btn-primary{
+  background:var(--accent);color:var(--accent-ink);
+  box-shadow:0 1px 2px rgba(21,24,27,.10), 0 8px 20px -10px rgba(27,58,99,.55);
+}
+.btn-primary:hover{
+  background:var(--accent-2);transform:translateY(-1px);
+  box-shadow:0 2px 4px rgba(21,24,27,.12), 0 14px 26px -12px rgba(27,58,99,.65);
+}
+
+/* Secundario: relleno claro, no un contorno vacío. */
+.btn-ghost{background:var(--panel-2);color:var(--ink);border-color:var(--line-strong);}
+.btn-ghost:hover{background:var(--panel);border-color:var(--ink-3);transform:translateY(-1px);box-shadow:var(--shadow);}
+
+.btn-wa{background:var(--panel);color:var(--ink);border-color:var(--line-strong);box-shadow:0 1px 2px rgba(21,24,27,.06);}
+.btn-wa:hover{border-color:var(--wa);transform:translateY(-1px);box-shadow:var(--shadow);}
+.btn-wa svg{color:var(--wa);}
+
+/* WhatsApp lleno. El verde acá no es decoración: es por dónde la gente
+   reconoce WhatsApp antes de leer el botón, así que estos CTA se salen
+   del azul de marca a propósito. Va sobre los primarios que además
+   llevan el ícono; los que abren WhatsApp sin ícono siguen en azul,
+   porque leen como CTA del sitio y no como "abrir WhatsApp".
+   Se resuelve reapuntando los tokens del primario —como hacen .nav y
+   .pie— en vez de reescribir background y color a mano. */
+.btn-primary.btn-wa-solid{
+  --accent:var(--wa-solid);
+  --accent-2:var(--wa-solid-2);
+  --accent-ink:#FFFFFF;
+  box-shadow:0 1px 2px rgba(21,24,27,.10), 0 8px 20px -10px rgba(19,122,71,.55);
+}
+.btn-primary.btn-wa-solid:hover{
+  box-shadow:0 2px 4px rgba(21,24,27,.12), 0 14px 26px -12px rgba(19,122,71,.65);
+}
+
+/* Para los CTA que tienen que pesar: portada, contacto, cierres de página. */
+.btn-lg{padding:16px 32px;font-size:16px;}
+
+.btn[disabled]{opacity:.6;cursor:progress;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.btn:focus-visible{outline-offset:3px;}
+@media (prefers-reduced-motion: reduce){ .btn:hover,.btn:active{transform:none;} }
+
+.spinner{
+  width:14px;height:14px;border-radius:50%;
+  border:2px solid currentColor;border-right-color:transparent;
+  animation:spin .7s linear infinite;display:none;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+#submitBtn.loading .btn-arrow{display:none;}
+#submitBtn.loading .spinner{display:inline-block;}
+
+/* ============ NAV ============
+   Header en el azul de marca. Igual que el pie, no reescribe una regla
+   por elemento: reapunta los tokens del sistema a los --nav-* para todo
+   su subárbol, así lo que adentro ya usaba var(--ink-2) o var(--accent)
+   se adapta solo. El acento acá no es el verde —sobre el azul marino
+   queda casi ilegible— sino el blanco, y con eso el botón primario se
+   invierte solo: pastilla blanca con texto azul.
+   El fondo va opaco a propósito: con el 10% de transparencia que tenía
+   antes, el contenido claro pasando por debajo levantaba el azul hasta
+   ~#202E43 y el filete caía a 4,1:1, por debajo de AA. */
+.nav{
+  --panel:var(--nav-bg);
+  --panel-2:var(--nav-bg);
+  --ink:var(--nav-ink);
+  --ink-2:var(--nav-ink-2);
+  --ink-3:var(--nav-ink-2);
+  --acero:var(--nav-ink-2);
+  --line:var(--nav-line);
+  --line-strong:var(--nav-line);
+  --accent:var(--nav-ink);
+  --accent-2:color-mix(in srgb, var(--nav-line) 45%, var(--nav-ink));
+  --accent-ink:var(--nav-bg);
+
+  position:sticky;top:0;z-index:60;
+  background:var(--nav-bg);
+  color:var(--nav-ink);
+  border-bottom:1px solid var(--line);
+  transition:box-shadow .2s ease;
+}
+/* Antes el estado "scrolled" oscurecía el filete. Con un solo gris de
+   marca eso no se notaría, así que el despegue lo marca la sombra. */
+.nav.scrolled{box-shadow:0 8px 22px -14px rgba(13,28,51,.7);}
+.nav-in{display:flex;align-items:center;gap:22px;height:var(--nav-h);}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;margin-right:auto;flex:none;}
+.logo .logo-z{width:25px;height:25px;}
+.logo .logo-mark{font-size:21px;}
+.logo .logo-tag{margin-left:3px;}
+.logo-tag{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;line-height:1;}
+
+.nav-links{display:flex;align-items:center;gap:22px;flex:none;}
+.nav-links a{font-size:13.5px;color:var(--ink-2);text-decoration:none;position:relative;padding:4px 0;white-space:nowrap;transition:color .15s ease;}
+.nav-links a:hover{color:var(--ink);}
+.nav-links a.active{color:var(--ink);}
+.nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1.5px;background:var(--accent);}
+
+.nav-actions{display:flex;align-items:center;gap:16px;flex:none;}
+.nav .btn{padding:11px 20px;font-size:14px;}
+/* El relieve del primario es un halo verde fijo, calculado para el botón
+   sobre papel. Sobre el azul desentona: se reemplaza por sombra neutra. */
+.nav .btn-primary{box-shadow:0 1px 2px rgba(0,0,0,.28), 0 8px 18px -12px rgba(0,0,0,.65);}
+.nav .btn-primary:hover{box-shadow:0 2px 5px rgba(0,0,0,.34), 0 14px 24px -14px rgba(0,0,0,.75);}
+.nav-wa{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink-2);font-weight:600;font-size:13.5px;transition:color .15s ease;}
+.nav-wa:hover{color:var(--ink);}
+.nav-wa svg{color:var(--wa);}
+.nav-toggle{display:none;background:transparent;border:1px solid var(--line-strong);border-radius:var(--radius);padding:7px;cursor:pointer;color:var(--ink);}
+
+.progress{
+  position:absolute;left:0;bottom:-1px;height:2px;width:100%;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;
+  transition:transform .1s linear;
+}
+
+@media (max-width:1080px){ .logo-tag{display:none;} }
+@media (max-width:1040px){
+  .nav-links{
+    position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--panel);border-bottom:1px solid var(--line);box-shadow:var(--shadow);
+    padding:4px 0;display:none;overscroll-behavior:contain;
+  }
+  .nav-links.open{display:flex;}
+  .nav-links a{padding:13px 28px;font-size:15px;white-space:normal;}
+  .nav-links a.active::after{display:none;}
+  .nav-links a.active{color:var(--accent);}
+  .nav-toggle{display:inline-flex;}
+}
+@media (max-width:620px){
+  .wrap{padding:0 20px;}
+  .nav-in{gap:14px;}
+  .nav .btn{padding:9px 13px;font-size:13px;white-space:nowrap;}
+  .nav-links a{padding:13px 20px;}
+  .nav-wa span{display:none;}
+  .nav-actions{gap:12px;}
+}
+@media (max-width:400px){ .nav-wa{display:none;} }
+
+/* ============ HERO ============ */
+.hero{padding:84px 0 76px;border-bottom:1px solid var(--line);}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:52px;align-items:start;}
+.hero-copy{padding-top:6px;}
+.hero h1{font-size:clamp(34px,5vw,54px);font-weight:700;margin:16px 0 0;}
+.hero h1 em{font-style:normal;color:var(--accent);}
+.hero-sub{margin-top:20px;font-size:17px;color:var(--ink-2);max-width:34em;}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;}
+.hero-note{margin-top:18px;font-size:12.5px;color:var(--ink-3);}
+@media (max-width:940px){
+  .hero{padding:52px 0 52px;}
+  .hero-grid{grid-template-columns:1fr;gap:34px;}
+  .hero h1 br{display:none;}
+}
+
+/* ---- tarjeta de tasación rápida ---- */
+.tasa-card{
+  background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:22px;display:flex;flex-direction:column;gap:14px;
+}
+.tasa-head{font-family:"Archivo",sans-serif;font-weight:600;font-size:17px;line-height:1.2;}
+.tasa-head .eyebrow{margin-bottom:8px;}
+.tasa-field{display:flex;flex-direction:column;gap:5px;}
+.tasa-field label{font-size:12.5px;font-weight:500;color:var(--ink-2);margin:0;}
+.tasa-btn{width:100%;margin-top:2px;padding:12px 18px;font-size:14.5px;}
+.tasa-foot{font-size:11.5px;color:var(--ink-3);line-height:1.5;}
+
+/* ============ TRUST STRIP ============ */
+.trust{border-bottom:1px solid var(--line);background:var(--ground);}
+.trust-in{
+  display:flex;flex-wrap:wrap;gap:10px 0;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.04em;
+  color:var(--ink-2);padding:15px 0;
+}
+.trust-in span{padding:0 20px;border-right:1px solid var(--line);}
+.trust-in span:first-child{padding-left:0;}
+.trust-in span:last-child{border-right:none;}
+@media (max-width:720px){
+  .trust-in{gap:8px 0;}
+  .trust-in span{flex:1 1 50%;border-right:none;padding:2px 0;}
+}
+
+/* ============ CRITERIOS BAND ============ */
+.band{border-bottom:1px solid var(--line);background:var(--panel-2);}
+.band-in{display:flex;flex-wrap:wrap;align-items:stretch;}
+.band-item{flex:1 1 200px;padding:24px;border-right:1px solid var(--line);}
+.band-item:last-child{border-right:none;}
+.band-item .k{display:block;font-family:"IBM Plex Mono",monospace;font-size:18px;font-weight:600;letter-spacing:-.01em;}
+.band-item .v{font-size:12.5px;color:var(--ink-3);}
+@media (max-width:640px){
+  .band-item{flex:1 1 50%;border-bottom:1px solid var(--line);}
+  .band-item:nth-child(2){border-right:none;}
+}
+
+/* ============ SECTIONS ============ */
+section{padding:58px 0;border-bottom:1px solid var(--line);}
+@media (max-width:900px){section{padding:44px 0;}}
+/* Dos secciones seguidas sumaban el doble de aire y abrían un hueco muerto
+   entre bloques. La regla que las separa ya hace el trabajo. */
+section + section{padding-top:46px;}
+@media (max-width:900px){section + section{padding-top:36px;}}
+.sec-head{max-width:62ch;margin:0 auto 38px;text-align:center;}
+.sec-head h2{font-size:clamp(25px,3vw,34px);font-weight:700;margin-top:12px;}
+.sec-head p{margin-top:14px;color:var(--ink-2);font-size:16px;}
+.sec-head .figure{
+  display:block;font-family:"Archivo",sans-serif;font-weight:700;
+  font-size:clamp(56px,9vw,100px);line-height:.85;letter-spacing:-.04em;
+  color:var(--accent);margin-bottom:14px;font-variant-numeric:tabular-nums;
+}
+.sec-foot{margin:22px auto 0;font-size:13px;color:var(--ink-3);max-width:72ch;text-align:center;}
+
+/* ---- pasos ---- */
+.steps{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+}
+.step{background:var(--panel);padding:28px 24px 30px;transition:background .15s ease;}
+.step:hover{background:var(--panel-2);}
+.step-n{
+  font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600;
+  color:var(--accent);letter-spacing:.06em;
+}
+.step h3{font-size:17px;font-weight:600;margin:12px 0 9px;}
+.step p{font-size:14px;color:var(--ink-2);}
+@media (max-width:900px){.steps{grid-template-columns:1fr;}}
+
+/* ---- planes ---- */
+.planes{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media (max-width:860px){.planes{grid-template-columns:1fr;}}
+.plan{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);
+  padding:28px 26px 30px;display:flex;flex-direction:column;transition:border-color .15s ease;
+}
+.plan:hover{border-color:var(--line-strong);}
+.plan.destacado{border-color:var(--accent);}
+.plan-tag{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+.plan.destacado .plan-tag{color:var(--accent);}
+.plan h3{font-size:23px;font-weight:700;margin:8px 0 6px;}
+.plan .para{font-size:13.5px;color:var(--ink-2);min-height:42px;}
+.plan-precio{margin:20px 0 6px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.plan-precio .big{font-family:"Archivo",sans-serif;font-size:30px;font-weight:700;letter-spacing:-.03em;}
+.plan-precio .sub{font-size:12.5px;color:var(--ink-2);margin-top:4px;}
+.plan-precio .extra{font-size:12.5px;color:var(--accent);font-weight:600;margin-top:8px;}
+.plan ul{margin-top:18px;flex:1;}
+.plan li{display:flex;gap:10px;padding:7px 0;font-size:13.5px;color:var(--ink-2);}
+.plan li svg{flex:none;margin-top:4px;color:var(--ok);}
+.plan-nota{margin-top:16px;font-size:12.5px;color:var(--ink-3);}
+.plan .btn{margin-top:22px;}
+
+/* ---- tabla comparativa ---- */
+.tabla-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-card);background:var(--panel);}
+table.comp{border-collapse:collapse;width:100%;min-width:620px;font-size:14px;}
+table.comp th,table.comp td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line);}
+table.comp thead th{background:var(--panel-2);font-family:"Archivo",sans-serif;font-size:12.5px;font-weight:600;position:sticky;top:0;}
+table.comp th.c,table.comp td.c{text-align:center;width:130px;}
+table.comp tbody tr:hover td{background:var(--panel-2);}
+table.comp tbody tr:last-child td{border-bottom:none;}
+table.comp td.grupo{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);background:var(--panel-2);}
+.mark-si{color:var(--ok);font-weight:600;}
+.mark-nota{font-size:12.5px;color:var(--ink-3);}
+
+/* ---- toggle de plan ---- */
+.toggle{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden;margin:14px 0 6px;}
+.toggle button{background:transparent;border:none;padding:10px 20px;font-size:13.5px;font-weight:500;cursor:pointer;color:var(--ink-2);transition:background .15s ease,color .15s ease;}
+.toggle button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:600;}
+
+/* ---- calculadora + reglas ---- */
+.trans-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;}
+@media (max-width:900px){.trans-grid{grid-template-columns:1fr;gap:32px;}}
+.calc{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);padding:26px;}
+.calc h3{font-size:16px;font-weight:600;}
+.calc>label{margin:0;font-size:12.5px;font-weight:500;color:var(--ink-2);display:block;}
+.calc-price{display:flex;align-items:baseline;gap:8px;margin:18px 0 4px;}
+.calc-price .cur{font-family:"IBM Plex Mono",monospace;font-size:16px;color:var(--ink-3);}
+#precioOut{font-family:"Archivo",sans-serif;font-size:38px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.03em;}
+input[type=range]{width:100%;accent-color:var(--accent);margin:14px 0 4px;}
+.calc-scale{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);}
+.calc-out{margin-top:22px;border-top:1px solid var(--line);}
+.calc-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px;}
+.calc-row:last-child{border-bottom:none;}
+.calc-row .lab{color:var(--ink-2);}
+.calc-row .amt{font-family:"IBM Plex Mono",monospace;font-weight:600;font-variant-numeric:tabular-nums;font-size:15px;text-align:right;}
+.calc-row.hi .amt{color:var(--accent);}
+#rCargo{font-size:12.5px;font-weight:500;color:var(--ink-3);}
+.calc-foot{margin-top:14px;font-size:12px;color:var(--ink-3);}
+
+.reglas-title{font-size:16px;font-weight:600;margin-bottom:6px;}
+.reglas-lead{font-size:13px;color:var(--ink-3);}
+.reglas{margin-top:18px;}
+.reglas li{display:flex;gap:13px;padding:15px 0;border-bottom:1px solid var(--line);}
+.reglas li:first-child{border-top:1px solid var(--line);}
+.reglas .no{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.1em;background:var(--warn-soft);color:var(--warn);padding:4px 8px;border-radius:2px;height:fit-content;flex:none;margin-top:2px;}
+.reglas h4{font-size:14.5px;font-weight:600;margin-bottom:3px;}
+.reglas p{font-size:13.5px;color:var(--ink-2);}
+
+/* ---- seguridad ---- */
+.safe{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.safe-item{border-top:2px solid var(--accent);padding-top:16px;}
+.safe-item h4{font-size:15px;font-weight:600;margin-bottom:7px;}
+.safe-item p{font-size:13.5px;color:var(--ink-2);}
+@media (max-width:900px){.safe{grid-template-columns:1fr 1fr;}}
+@media (max-width:560px){.safe{grid-template-columns:1fr;}}
+
+/* ---- formulario ---- */
+.form-sec{background:var(--panel-2);}
+.form-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:56px;align-items:start;}
+@media (max-width:960px){.form-grid{grid-template-columns:1fr;gap:36px;}}
+.form-aside{position:sticky;top:calc(var(--nav-h) + 24px);}
+@media (max-width:960px){.form-aside{position:static;}}
+.form-aside h2{font-size:clamp(24px,3vw,32px);font-weight:700;margin-top:12px;}
+.form-aside p{margin-top:14px;color:var(--ink-2);font-size:15px;}
+.aside-list{margin-top:26px;}
+.aside-list li{display:flex;gap:11px;padding:11px 0;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-2);}
+.aside-list li:last-child{border-bottom:1px solid var(--line);}
+.aside-list b{color:var(--ink);font-weight:600;}
+.aside-wa{margin-top:26px;padding:20px;border:1px solid var(--line);border-radius:var(--radius-card);background:var(--panel);}
+.aside-wa>p{margin:0 0 12px;font-size:13px;color:var(--ink-2);}
+.aside-wa .btn{width:100%;}
+.aside-wa-note{margin-top:10px!important;font-size:11.5px;color:var(--ink-3);}
+
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+
+fieldset{border:none;padding:0;margin:0 0 26px;}
+legend{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:0 0 12px;}
+.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.f-full{grid-column:1/-1;}
+@media (max-width:560px){.fields{grid-template-columns:1fr;}}
+label{display:block;font-size:12.5px;font-weight:500;color:var(--ink-2);margin-bottom:5px;}
+label .req{color:var(--accent);}
+input[type=text],input[type=tel],input[type=email],input[type=number],select,textarea{
+  width:100%;padding:10px 12px;background:var(--panel);color:var(--ink);
+  border:1px solid var(--line-strong);border-radius:var(--radius);font-size:14px;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+select{color:var(--ink);background-color:var(--panel);}
+textarea{resize:vertical;min-height:76px;}
+input:hover,select:hover,textarea:hover{border-color:var(--ink-3);}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);}
+input.invalid,select.invalid{border-color:var(--warn);box-shadow:0 0 0 3px var(--warn-soft);}
+.tasa-card input{background:var(--ground);}
+.hint{font-size:11.5px;color:var(--ink-3);margin-top:5px;}
+/* El dominio se escribe en mayúsculas y en monoespaciada: es un código,
+   no una palabra. Ayuda a ver el error de tipeo antes de enviar. */
+.dominio-input{text-transform:uppercase;font-family:"IBM Plex Mono",ui-monospace,monospace;letter-spacing:.08em;}
+.form-submit{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:8px;}
+.form-legal{font-size:11.5px;color:var(--ink-3);max-width:34em;}
+
+#veredicto{margin-top:18px;padding:14px 16px;border-radius:var(--radius);font-size:13.5px;border:1px solid var(--line);background:var(--panel);display:none;}
+#veredicto.show{display:block;}
+#veredicto.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok);}
+#veredicto.rev{background:var(--warn-soft);border-color:var(--warn);color:var(--warn);}
+#veredicto b{display:block;font-family:"Archivo",sans-serif;font-size:14.5px;margin-bottom:3px;}
+
+#resumen{display:none;margin-top:26px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--panel);padding:22px;}
+#resumen.show{display:block;}
+#resumen h3{font-size:17px;font-weight:700;}
+#resumen p{font-size:13.5px;color:var(--ink-2);margin-top:8px;}
+#resumenTxt{margin-top:16px;padding:14px;background:var(--ground);border:1px solid var(--line);border-radius:var(--radius);font-family:"IBM Plex Mono",monospace;font-size:12px;white-space:pre-wrap;max-height:230px;overflow:auto;}
+.resumen-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+
+/* ---- faq ---- */
+.faq details{border-bottom:1px solid var(--line);}
+.faq details:first-child{border-top:1px solid var(--line);}
+.faq summary{cursor:pointer;list-style:none;padding:18px 40px 18px 0;position:relative;font-family:"Archivo",sans-serif;font-size:16px;font-weight:600;}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{
+  content:"";position:absolute;right:6px;top:50%;width:11px;height:11px;margin-top:-6px;
+  background:
+    linear-gradient(var(--accent),var(--accent)) center/11px 1.5px no-repeat,
+    linear-gradient(var(--accent),var(--accent)) center/1.5px 11px no-repeat;
+  transition:transform .2s ease;
+}
+.faq details[open] summary::after{transform:rotate(45deg);}
+.faq .ans{padding:0 44px 20px 0;color:var(--ink-2);font-size:14px;}
+.faq details[open] .ans{animation:faqIn .22s ease;}
+@keyframes faqIn{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
+
+/* ---- footer ---- */
+footer{padding:56px 0;background:var(--panel);}
+.foot-in{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:flex-start;}
+.foot-brand .logo-mark{font-size:23px;}
+.foot-brand .logo-z{width:24px;height:24px;}
+.foot-brand p{font-size:12.5px;color:var(--ink-3);max-width:44ch;margin-top:10px;}
+.foot-contact{display:flex;flex-direction:column;gap:9px;align-items:flex-start;}
+.foot-contact .eyebrow{margin-bottom:4px;}
+.foot-link{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2);text-decoration:none;}
+.foot-link:hover{color:var(--ink);}
+.foot-link svg{color:var(--wa);}
+.foot-legal{font-size:11.5px;color:var(--ink-3);margin-top:8px;max-width:44ch;}
+@media (max-width:640px){.foot-in{flex-direction:column;gap:24px;}}
+
+/* ---- botones flotantes ---- */
+.wa-float{
+  position:fixed;right:20px;bottom:20px;z-index:70;
+  display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:100px;
+  background:var(--panel);color:var(--ink);border:1px solid var(--line-strong);
+  font-size:13px;font-weight:600;text-decoration:none;box-shadow:var(--shadow);
+  transform:translateY(90px);opacity:0;pointer-events:none;
+  transition:transform .25s ease, opacity .25s ease, border-color .15s ease;
+}
+.wa-float svg{color:var(--wa);}
+.wa-float.show{transform:none;opacity:1;pointer-events:auto;}
+.wa-float:hover{border-color:var(--ink-3);}
+.to-top{
+  position:fixed;left:20px;bottom:20px;z-index:70;
+  width:40px;height:40px;border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--panel);color:var(--ink-2);border:1px solid var(--line-strong);
+  cursor:pointer;box-shadow:var(--shadow);
+  transform:translateY(90px);opacity:0;pointer-events:none;
+  transition:transform .25s ease, opacity .25s ease, border-color .15s ease, color .15s ease;
+}
+.to-top.show{transform:none;opacity:1;pointer-events:auto;}
+.to-top:hover{border-color:var(--ink-3);color:var(--ink);}
+@media (max-width:560px){.wa-float{right:16px;bottom:16px;} .to-top{left:16px;bottom:16px;}}
+
+/* ---- aparición progresiva ---- */
+.js [data-reveal]{opacity:0;transform:translateY(10px);transition:opacity .4s ease, transform .4s ease;}
+.js [data-reveal].in{opacity:1;transform:none;}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}
+  .js [data-reveal]{opacity:1!important;transform:none!important;}
+}
+
+/* ============================================================
+   ===============  SITIO CATÁLOGO  ===========================
+   Todo lo de acá abajo es del catálogo: portada, tarjeta, ficha,
+   filtros y pie de dos columnas. Lo de arriba es el material
+   argumental, que ahora vive en /como-funciona.html y
+   /consigna-tu-auto.html, y se sigue usando tal cual.
+   ============================================================ */
+
+/* ---- el nav ahora tiene 3 links: el menú móvil entra más tarde.
+       Estas reglas pisan a propósito el corte en 1040px de arriba. ---- */
+@media (min-width:821px){
+  .nav-links{position:static;display:flex;flex-direction:row;align-items:center;gap:22px;background:none;border:none;box-shadow:none;padding:0;}
+  .nav-links a{padding:4px 0;font-size:13.5px;}
+  .nav-toggle{display:none;}
+}
+@media (max-width:820px){
+  .nav-links{
+    position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--panel);border-bottom:1px solid var(--line);box-shadow:var(--shadow);
+    padding:4px 0;display:none;overscroll-behavior:contain;
+  }
+  .nav-links.open{display:flex;}
+  .nav-toggle{display:inline-flex;}
+}
+@media (max-width:1180px){ .logo-tag{display:none;} }
+
+/* ============ BARRA DE CONTEXTO ============
+   Una línea, no un hero. Sin imagen de fondo ni botón gigante. */
+.ctx{border-bottom:1px solid var(--line);background:var(--panel-2);}
+.ctx p{
+  padding:14px 0;font-size:14px;color:var(--ink-2);
+  max-width:78ch;margin-inline:auto;line-height:1.5;text-align:center;
+}
+.ctx b{color:var(--ink);font-weight:600;}
+
+/* ============ FILTROS ============ */
+.filtros-barra{
+  position:sticky;top:var(--nav-h);z-index:50;
+  background:color-mix(in srgb, var(--ground) 94%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.filtros-abrir{display:none;}
+.filtros-form{display:flex;align-items:flex-end;gap:14px;padding:14px 0;flex-wrap:wrap;}
+.filtros-scroll{display:flex;align-items:flex-end;gap:14px;flex:1;flex-wrap:wrap;}
+.f-campo{display:flex;flex-direction:column;gap:4px;min-width:0;}
+.f-campo label{margin:0;font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+.f-campo input,.f-campo select{padding:7px 9px;font-size:13px;border-radius:var(--radius);}
+.f-campo select{min-width:118px;}
+.f-busca{flex:1 1 190px;}
+.f-busca input{width:100%;}
+.f-rango>div{display:flex;align-items:center;gap:5px;}
+.f-rango input{width:78px;}
+.f-rango span{color:var(--ink-3);font-size:12px;}
+.f-campo input[type=number]{width:104px;}
+.f-check{justify-content:flex-end;}
+.f-check label{
+  display:flex;align-items:center;gap:7px;cursor:pointer;
+  font-family:"Archivo",sans-serif;font-size:13px;font-weight:500;
+  letter-spacing:0;text-transform:none;color:var(--ink-2);padding-bottom:7px;
+}
+.f-check input{accent-color:var(--accent);width:15px;height:15px;}
+.filtros-pie{display:flex;gap:8px;}
+.filtros-pie .btn{padding:8px 15px;font-size:13px;}
+
+@media (max-width:900px){
+  .filtros-barra .wrap{padding-top:10px;padding-bottom:10px;}
+  .filtros-abrir{display:inline-flex;width:100%;justify-content:center;gap:8px;}
+  .filtros-cuenta{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--accent);}
+  .filtros-form{
+    position:fixed;inset:0;z-index:120;display:none;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--ground);padding:0;
+  }
+  .filtros-form.abierto{display:flex;}
+  .filtros-scroll{
+    flex:1;flex-direction:column;align-items:stretch;gap:16px;
+    overflow-y:auto;padding:20px;
+    padding-top:calc(20px + env(safe-area-inset-top));
+  }
+  .f-campo select,.f-campo input,.f-rango input,.f-campo input[type=number]{width:100%;font-size:16px;padding:10px 12px;}
+  .f-rango>div{gap:8px;}
+  .f-rango input{flex:1;}
+  .f-check label{padding:0;font-size:15px;}
+  .filtros-pie{
+    position:sticky;bottom:0;gap:10px;padding:14px 20px;
+    padding-bottom:calc(14px + env(safe-area-inset-bottom));
+    border-top:1px solid var(--line);background:var(--panel);
+  }
+  .filtros-pie .btn{flex:1;padding:12px 16px;font-size:14px;}
+}
+
+/* ============ CATÁLOGO ============ */
+.catalogo{padding:28px 0 56px;border-bottom:none;}
+.catalogo-head{
+  display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
+  padding-bottom:16px;margin-bottom:22px;border-bottom:1px solid var(--line);
+}
+.catalogo-titulo{font-size:20px;font-weight:600;letter-spacing:-.01em;}
+.catalogo-cuenta{font-size:12px;color:var(--ink-3);margin-right:auto;font-variant-numeric:tabular-nums;}
+.catalogo-orden{display:flex;align-items:center;gap:8px;margin:0;}
+.catalogo-orden span{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+.catalogo-orden select{padding:6px 9px;font-size:13px;}
+
+.grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(292px,1fr));gap:20px;}
+.grilla-curada{grid-template-columns:repeat(auto-fill,minmax(430px,1fr));gap:24px;}
+@media (max-width:520px){
+  .grilla,.grilla-curada{grid-template-columns:1fr;gap:16px;}
+}
+
+.sin-resultados{
+  border:1px solid var(--line);border-radius:var(--radius-card);background:var(--panel);
+  padding:34px 26px;text-align:center;color:var(--ink-2);font-size:14.5px;
+}
+.sin-resultados b{display:block;font-family:"Archivo",sans-serif;font-size:17px;color:var(--ink);margin-bottom:6px;}
+.sin-resultados .btn{margin-top:16px;}
+
+/* ---- tarjeta ---- */
+.auto{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);
+  overflow:hidden;transition:border-color .16s ease, transform .16s ease, box-shadow .16s ease;
+}
+.auto:hover{border-color:var(--line-strong);transform:translateY(-2px);box-shadow:var(--shadow);}
+.auto:focus-within{border-color:var(--accent);}
+.auto-link{display:block;text-decoration:none;color:inherit;}
+.auto-link:focus-visible{outline:none;}
+.auto-foto{position:relative;aspect-ratio:4/3;background:var(--panel-2);overflow:hidden;}
+.auto-foto img{width:100%;height:100%;object-fit:cover;display:block;}
+.auto-cuerpo{padding:15px 16px 17px;border-top:1px solid var(--line);}
+.auto-marca{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);
+}
+.auto-modelo{font-size:16.5px;font-weight:600;margin:5px 0 0;letter-spacing:-.01em;}
+.auto-modelo span{display:block;font-size:13px;font-weight:400;color:var(--ink-2);letter-spacing:0;margin-top:2px;}
+.auto-precio{
+  font-family:"Archivo",sans-serif;font-size:24px;font-weight:700;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;margin-top:12px;
+}
+.auto-precio .cur{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:500;color:var(--ink-3);letter-spacing:0;}
+.auto-datos{
+  display:flex;flex-wrap:wrap;align-items:center;gap:6px;
+  margin-top:10px;padding-top:10px;border-top:1px solid var(--line);
+  font-size:11.5px;color:var(--ink-2);font-variant-numeric:tabular-nums;
+}
+.auto-datos i{color:var(--acero);font-style:normal;}
+
+.auto-curada .auto-cuerpo{padding:20px 22px 22px;}
+.auto-curada .auto-modelo{font-size:19px;}
+.auto-curada .auto-precio{font-size:28px;}
+
+.auto-vendida{opacity:.92;}
+.auto-vendida .auto-foto img{filter:grayscale(1);}
+.auto-vendida .auto-precio{display:none;}
+
+/* ---- badge de estado ---- */
+.badge{
+  position:absolute;top:10px;left:10px;z-index:2;
+  font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  padding:6px 11px;border-radius:999px;
+  background:var(--ink);color:var(--ground);
+}
+.badge-vendido{background:var(--acero);color:#15181B;}
+.badge-inline{position:static;display:inline-block;margin-bottom:10px;}
+
+/* ============ VENDIDOS RECIENTEMENTE ============ */
+.vendidos{padding:52px 0 60px;border-top:1px solid var(--line);background:var(--panel-2);}
+.vendidos-head{margin-bottom:22px;}
+.vendidos-head h2{font-size:20px;font-weight:600;margin-top:8px;}
+.vendidos-track{
+  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(250px,1fr);
+  gap:16px;overflow-x:auto;padding-bottom:6px;
+  scroll-snap-type:x proximity;overscroll-behavior-x:contain;
+}
+.vendidos-track>*{scroll-snap-align:start;}
+@media (min-width:1100px){ .vendidos-track{grid-auto-columns:minmax(0,1fr);overflow:visible;} }
+
+/* ============ TRES ACCESOS ============ */
+.accesos{padding:56px 0;border-top:1px solid var(--line);}
+.accesos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-card);overflow:hidden;}
+@media (max-width:800px){ .accesos-grid{grid-template-columns:1fr;} }
+.acceso{
+  background:var(--panel);padding:26px 24px 24px;text-decoration:none;color:inherit;
+  display:flex;flex-direction:column;gap:8px;transition:background .15s ease;
+}
+.acceso:hover{background:var(--panel-2);}
+.acceso h3{font-size:17px;font-weight:600;}
+.acceso p{font-size:13.5px;color:var(--ink-2);}
+.acceso-mas{
+  margin-top:auto;padding-top:12px;display:inline-flex;align-items:center;gap:7px;
+  font-size:13px;font-weight:600;color:var(--accent);
+}
+
+/* ============ BLOQUE DE CONSIGNACIÓN ============ */
+.consigna{border-top:1px solid var(--line);background:var(--panel);padding:56px 0;}
+.consigna-in{
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;
+  max-width:62ch;margin-inline:auto;
+}
+.consigna-in h2{font-size:clamp(22px,2.8vw,30px);font-weight:700;margin-top:10px;}
+.consigna-in p{margin-top:10px;color:var(--ink-2);font-size:15px;}
+.consigna-cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:24px;}
+
+/* ============ CATÁLOGO VACÍO ============ */
+.vacio{padding:56px 0 64px;}
+.vacio-in{
+  max-width:60ch;border:1px solid var(--line);border-radius:14px;
+  background:var(--panel);padding:44px 40px;text-align:center;box-shadow:var(--shadow);
+}
+.vacio-in h2{font-size:clamp(24px,3.2vw,32px);font-weight:700;margin-top:12px;}
+.vacio-in p{margin-top:14px;color:var(--ink-2);font-size:15.5px;}
+.vacio-cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:28px;}
+@media (max-width:560px){ .vacio-in{padding:30px 22px;} }
+
+/* ============ PIE DE DOS COLUMNAS ============ */
+/* El pie redefine los tokens para su subárbol. Todo lo que hay adentro
+   ya usa var(--ink-2), var(--line), etc., así que se adapta solo y no hay
+   que duplicar una regla por elemento. */
+.pie{
+  --panel:var(--pie-bg);
+  --panel-2:var(--pie-bg);
+  --ink:var(--pie-ink);
+  --ink-2:var(--pie-ink-2);
+  --ink-3:var(--pie-ink-2);
+  --acero:var(--pie-ink-2);
+  --line:var(--pie-line);
+  --line-strong:var(--pie-line);
+  --accent:var(--pie-accent);
+  --wa:var(--pie-wa);
+  padding:60px 0 44px;
+  background:var(--pie-bg);
+  color:var(--pie-ink);
+  border-top:none;
+}
+.pie-top{display:flex;gap:56px;justify-content:space-between;flex-wrap:wrap;}
+.pie-marca{max-width:34ch;}
+.pie-marca p{margin-top:12px;font-size:13px;color:var(--ink-2);}
+.pie-cols{display:grid;grid-template-columns:repeat(2,minmax(150px,1fr));gap:44px;}
+.pie-cols .eyebrow{margin-bottom:14px;}
+.pie-cols li+li{margin-top:9px;}
+.pie-cols a{font-size:13.5px;color:var(--ink-2);text-decoration:none;transition:color .15s ease;}
+.pie-cols a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px;}
+@media (max-width:640px){
+  .pie-top{gap:32px;}
+  /* minmax(0,1fr) y no minmax(150px,...): con el mínimo fijo, las dos
+     columnas más el gap y el padding no entraban en 360px y empujaban
+     scroll horizontal en todo el sitio. */
+  .pie-cols{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;width:100%;}
+}
+
+.foot-seo{margin-top:36px;border-top:1px solid var(--line);padding-top:18px;}
+.foot-seo summary{cursor:pointer;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
+.foot-seo-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:18px;}
+@media (max-width:640px){ .foot-seo-grid{grid-template-columns:1fr;} }
+.foot-seo-links{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;}
+.foot-seo-links a{font-size:13px;color:var(--ink-2);text-decoration:none;}
+.foot-seo-links a:hover{color:var(--ink);text-decoration:underline;}
+
+.pie-legal{margin-top:38px;padding-top:22px;border-top:1px solid var(--line);}
+.pie-redes{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:14px;}
+.foot-red{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-2);text-decoration:none;}
+.foot-red:hover{color:var(--ink);}
+.foot-red svg{color:var(--wa);}
+.pie-legal p{font-size:11.5px;color:var(--ink-3);}
+.pie-aclara{margin-top:6px;max-width:74ch;}
+
+/* ============ BREADCRUMB ============ */
+.breadcrumb{border-bottom:1px solid var(--line);background:var(--panel-2);}
+.breadcrumb ol{display:flex;flex-wrap:wrap;gap:8px;padding:11px 0;font-size:11.5px;color:var(--ink-3);}
+.breadcrumb li+li::before{content:"›";margin-right:8px;color:var(--acero);}
+.breadcrumb a{color:var(--ink-2);text-decoration:none;}
+.breadcrumb a:hover{color:var(--ink);text-decoration:underline;}
+
+/* ============ FICHA DE VEHÍCULO ============ */
+.ficha-grid{display:grid;grid-template-columns:minmax(0,1fr) 336px;gap:44px;padding-top:34px;padding-bottom:64px;align-items:start;}
+@media (max-width:980px){ .ficha-grid{grid-template-columns:1fr;gap:32px;} }
+
+.ficha-head{margin-bottom:22px;}
+.ficha-head h1{font-size:clamp(23px,3.2vw,32px);font-weight:700;}
+.ficha-h-marca{font-family:"IBM Plex Mono",monospace;font-size:.72em;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);}
+.ficha-version{margin-top:8px;font-size:15px;color:var(--ink-2);}
+
+/* ---- galería ---- */
+.galeria{margin:0;position:relative;}
+.gal-track{
+  display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
+  border:1px solid var(--line);border-radius:var(--radius-card);background:var(--panel-2);
+  overscroll-behavior-x:contain;scrollbar-width:none;
+}
+.gal-track::-webkit-scrollbar{display:none;}
+.gal-slide{flex:0 0 100%;scroll-snap-align:center;scroll-margin-top:0;}
+.gal-slide img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
+.js .gal-slide img{cursor:zoom-in;}
+.gal-nav{
+  position:absolute;top:calc(50% - 46px);transform:translateY(-50%);
+  width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+  background:var(--panel);color:var(--ink);border:1px solid var(--line-strong);
+  border-radius:var(--radius);cursor:pointer;font-size:20px;line-height:1;
+  box-shadow:var(--shadow);transition:border-color .15s ease;
+}
+.gal-nav:hover{border-color:var(--ink-3);}
+.gal-prev{left:10px;} .gal-next{right:10px;}
+.gal-contador{display:block;text-align:right;font-size:11px;color:var(--ink-3);padding:9px 2px 0;}
+.gal-minis{display:flex;gap:8px;margin-top:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin;}
+.gal-mini{display:block;flex:0 0 84px;border:1px solid var(--line);border-radius:2px;overflow:hidden;opacity:.62;transition:opacity .15s ease, border-color .15s ease;}
+.gal-mini img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
+.gal-mini:hover{opacity:1;}
+.gal-mini.activa{opacity:1;border-color:var(--ink);}
+
+/* ---- lightbox ---- */
+.lightbox{
+  border:none;padding:0;max-width:100vw;max-height:100vh;width:100%;height:100%;
+  background:rgba(21,24,27,.94);color:#F2F4F5;
+}
+.lightbox::backdrop{background:rgba(21,24,27,.94);}
+.lightbox-in{display:flex;flex-direction:column;height:100%;}
+.lightbox img{flex:1;min-height:0;width:100%;object-fit:contain;}
+.lightbox-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;}
+.lightbox-bar button{background:transparent;border:1px solid rgba(242,244,245,.35);color:inherit;border-radius:var(--radius);padding:8px 14px;cursor:pointer;font-size:14px;}
+.lightbox-bar button:hover{border-color:#F2F4F5;}
+.lightbox-cont{font-family:"IBM Plex Mono",monospace;font-size:12px;}
+
+/* ---- bloques de la ficha ---- */
+.ficha-bloque{margin-top:42px;}
+.ficha-bloque h2{font-size:18px;font-weight:600;padding-bottom:11px;border-bottom:1px solid var(--line);}
+.ficha-sub{margin-top:12px;font-size:13.5px;color:var(--ink-2);}
+.ficha-desc{margin-top:16px;font-size:15px;color:var(--ink-2);max-width:70ch;}
+
+/* ---- semáforo de documentación ---- */
+/* Flex y no grid: son cinco ítems y en una grilla de tres columnas la
+   sexta celda quedaba vacía y gris. Así la última fila reparte el ancho. */
+.semaforo{display:flex;flex-wrap:wrap;gap:1px;margin-top:18px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-card);overflow:hidden;}
+.sem-item{flex:1 1 210px;display:flex;align-items:center;gap:10px;padding:15px 16px;background:var(--panel);font-size:13.5px;}
+.sem-item svg{flex:none;}
+.sem-si{color:var(--ink);}
+.sem-si .i-si{color:var(--ok);}
+.sem-no{color:var(--ink-2);}
+.sem-no .i-no{color:var(--warn);}
+
+/* ---- ficha técnica ---- */
+.tecnica{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;margin:6px 0 0;}
+@media (max-width:620px){ .tecnica{grid-template-columns:1fr;} }
+.tec-fila{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);}
+.tec-fila dt{font-size:13.5px;color:var(--ink-2);}
+.tec-fila dd{margin:0;font-size:13.5px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums;}
+
+/* ---- cómo es comprar ---- */
+.compra-lista{margin-top:16px;}
+.compra-lista li{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);}
+.compra-lista span{font-size:11px;font-weight:600;color:var(--accent);padding-top:3px;flex:none;}
+.compra-lista p{font-size:13.5px;color:var(--ink-2);}
+.compra-nota{margin-top:14px;font-size:12.5px;color:var(--ink-3);}
+
+/* ---- panel de acción ---- */
+.ficha-panel{position:sticky;top:calc(var(--nav-h) + 22px);}
+@media (max-width:980px){ .ficha-panel{position:static;} }
+.panel{border:1px solid var(--line-strong);border-radius:var(--radius-card);background:var(--panel);padding:24px;box-shadow:var(--shadow);}
+.precio-usd{font-family:"Archivo",sans-serif;font-size:34px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.05;}
+.precio-usd .cur{font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:500;color:var(--ink-3);letter-spacing:0;}
+.precio-ars{margin-top:6px;font-size:11.5px;color:var(--ink-3);}
+.panel-codigo{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;}
+.panel-btn{width:100%;margin-top:10px;padding:14px 22px;}
+.panel-legal{margin-top:16px;font-size:11.5px;color:var(--ink-3);}
+.panel-aviso{margin-top:14px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel-2);}
+.panel-aviso-t{font-family:"Archivo",sans-serif;font-size:16px;font-weight:700;margin:4px 0 6px;}
+.panel-aviso p:last-child{font-size:12.5px;color:var(--ink-2);}
+.panel-vendido .panel-aviso-t{color:var(--ink-2);}
+
+/* ---- barra fija en mobile ---- */
+.barra-movil{display:none;}
+@media (max-width:980px){
+  .barra-movil{
+    display:block;position:fixed;left:0;right:0;bottom:0;z-index:80;
+    background:color-mix(in srgb, var(--panel) 96%, transparent);
+    backdrop-filter:blur(10px);border-top:1px solid var(--line-strong);
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  .barra-movil-in{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 20px;}
+  .barra-cod{font-size:10px;color:var(--ink-3);letter-spacing:.1em;}
+  .barra-precio{font-family:"Archivo",sans-serif;font-size:20px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1;}
+  .barra-precio .cur{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:500;color:var(--ink-3);}
+  body.pag-ficha{padding-bottom:70px;}
+}
+
+/* ---- similares ---- */
+.similares{border-top:1px solid var(--line);padding:52px 0 64px;background:var(--panel-2);}
+.similares-t{font-size:19px;font-weight:600;padding-bottom:14px;margin-bottom:22px;border-bottom:1px solid var(--line);}
+
+/* ============ PÁGINAS DE TEXTO ============ */
+.pag-texto section:last-of-type{border-bottom:none;}
+
+/* Encabezado centrado: el título ocupaba media pantalla y dejaba el resto
+   vacío. Centrado, la página arranca equilibrada. */
+.pag-head{padding:48px 0 0;text-align:center;}
+/* El encabezado ya trae aire propio: la primera sección no repite el suyo. */
+.pag-head + section{padding-top:64px;}
+/* Si la sección siguiente trae fondo propio, el corte se ve como una línea
+   dura pegada al texto. Hace falta aire ANTES del corte, no después. */
+.pag-head + .form-sec{margin-top:68px;padding-top:64px;}
+@media (max-width:900px){ .pag-head + .form-sec{margin-top:44px;padding-top:44px;} }
+@media (max-width:900px){ .pag-head{padding-top:34px;} .pag-head + section{padding-top:44px;} }
+.pag-head h1{font-size:clamp(30px,4.4vw,46px);font-weight:700;margin-top:12px;}
+.pag-head p{margin:16px auto 0;font-size:17px;color:var(--ink-2);max-width:60ch;}
+.pag-head-cta{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:26px;}
+
+.prosa{max-width:70ch;}
+/* Cuando .prosa va sobre el propio .wrap, el contenedor conserva el ancho
+   de página y el que se angosta es el contenido, centrado bajo el título. */
+.wrap.prosa{max-width:var(--maxw);}
+/* Medida fija y no 70ch: `ch` se mide contra el tamaño de fuente del propio
+   elemento, así que un h2 de 22px daba una columna más ancha que un p de
+   15px y los títulos quedaban desalineados del texto. */
+.wrap.prosa>*{max-width:640px;margin-left:auto;margin-right:auto;}
+.prosa h2{font-size:22px;font-weight:700;margin-top:44px;padding-bottom:10px;border-bottom:1px solid var(--line);}
+.prosa h3{font-size:16px;font-weight:600;margin-top:26px;}
+.prosa p{margin-top:14px;color:var(--ink-2);font-size:15px;}
+.prosa ul{margin-top:14px;}
+.prosa ul li{position:relative;padding:6px 0 6px 20px;color:var(--ink-2);font-size:15px;}
+.prosa ul li::before{content:"";position:absolute;left:2px;top:16px;width:6px;height:1px;background:var(--acero);}
+.prosa ol{margin-top:14px;counter-reset:p;}
+.prosa ol li{counter-increment:p;position:relative;padding:6px 0 6px 30px;color:var(--ink-2);font-size:15px;}
+.prosa ol li::before{content:counter(p) ".";position:absolute;left:0;top:6px;font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink-3);}
+.prosa b,.prosa strong{color:var(--ink);font-weight:600;}
+.prosa a{color:var(--accent);text-underline-offset:3px;}
+.prosa .dato{
+  margin-top:20px;padding:16px 18px;border-left:2px solid var(--accent);
+  background:var(--panel);font-size:14px;color:var(--ink-2);
+}
+.prosa .dato b{display:block;color:var(--ink);margin-bottom:4px;}
+.pag-actualizado{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);}
+
+/* ---- contacto ----
+   Las dos tarjetas son hermanas: misma altura y el botón a la misma línea,
+   por más que un texto tenga un renglón más que el otro. El bloque de CTA
+   se empuja al fondo con margin-top:auto y deja de bailar. */
+.contacto-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;
+  align-items:stretch;max-width:900px;margin-inline:auto;
+}
+@media (max-width:820px){ .contacto-grid{grid-template-columns:1fr;gap:18px;} }
+.contacto-card{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  border:1px solid var(--line);border-radius:14px;background:var(--panel);
+  padding:34px 30px 30px;box-shadow:var(--shadow);
+  transition:border-color .16s ease, transform .16s ease;
+}
+.contacto-card:hover{border-color:var(--line-strong);transform:translateY(-2px);}
+.contacto-card .eyebrow{margin-bottom:10px;}
+.contacto-card h2{font-size:20px;font-weight:700;}
+.contacto-card p{margin-top:12px;font-size:14.5px;color:var(--ink-2);max-width:38ch;}
+.contacto-cta{margin-top:auto;padding-top:24px;display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;}
+.contacto-cta .btn{width:100%;max-width:280px;}
+.contacto-nota{font-size:12.5px;color:var(--ink-3);max-width:36ch;}
+
+.contacto-datos{margin:0 auto;max-width:640px;}
+.contacto-datos div{
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 24px;
+  padding:15px 0;border-bottom:1px solid var(--line);
+}
+.contacto-datos div:first-child{border-top:1px solid var(--line);}
+.contacto-datos dt{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);flex:none;}
+.contacto-datos dd{margin:0;font-size:14.5px;text-align:right;flex:1 1 60%;}
+@media (max-width:560px){ .contacto-datos dd{text-align:left;flex-basis:100%;} }
+

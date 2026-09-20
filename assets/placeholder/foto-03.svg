@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Foto pendiente: Interior">
+  <rect width="800" height="600" fill="#E9ECEE"/>
+  <g fill="none" stroke="#C2C8CC" stroke-width="1">
+    <path d="M40 40 h60 M40 40 v60 M760 40 h-60 M760 40 v60 M40 560 h60 M40 560 v-60 M760 560 h-60 M760 560 v-60"/>
+  </g>
+  <g fill="none" stroke="#98A1A7" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,-60) scale(0.86) translate(64,60)">
+    <path d="M400 420 m-96 0 a96 96 0 1 0 192 0 a96 96 0 1 0 -192 0" />
+         <path d="M400 420 m-48 0 a48 48 0 1 0 96 0 a48 48 0 1 0 -96 0" />
+         <path d="M352 420 h-48 M448 420 h48 M400 468 v50" />
+         <path d="M232 596 h336" />
+  </g>
+  <text x="400" y="150" text-anchor="middle" fill="#6E767C" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="19" letter-spacing="4">FOTO PENDIENTE</text>
+  <text x="400" y="188" text-anchor="middle" fill="#98A1A7" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="15" letter-spacing="2">03 · INTERIOR</text>
+</svg>

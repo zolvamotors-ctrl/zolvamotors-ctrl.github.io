@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Zolva">
+  <title>Zolva</title>
+  <rect width="64" height="64" rx="6" fill="#0B3AA8"/>
+  <path fill="#FFFFFF" d="M15 16 H49 V23 L23 41 H49 V48 H15 V41 L41 23 H15 Z"/>
+</svg>

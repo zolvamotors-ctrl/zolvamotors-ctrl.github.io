@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Foto pendiente: 3/4 delantera">
+  <rect width="800" height="600" fill="#E9ECEE"/>
+  <g fill="none" stroke="#C2C8CC" stroke-width="1">
+    <path d="M40 40 h60 M40 40 v60 M760 40 h-60 M760 40 v60 M40 560 h60 M40 560 v-60 M760 560 h-60 M760 560 v-60"/>
+  </g>
+  <g fill="none" stroke="#98A1A7" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,-60) scale(0.86) translate(64,60)">
+    <path d="M232 476 l34-92 c8-22 29-36 52-36 h164 c23 0 44 14 52 36 l34 92" />
+         <path d="M196 476 h408 c13 0 24 11 24 24 v72 c0 13-11 24-24 24 h-408 c-13 0-24-11-24-24 v-72 c0-13 11-24 24-24 z" />
+         <circle cx="266" cy="596" r="34" /><circle cx="534" cy="596" r="34" />
+         <path d="M300 476 h200" />
+  </g>
+  <text x="400" y="150" text-anchor="middle" fill="#6E767C" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="19" letter-spacing="4">FOTO PENDIENTE</text>
+  <text x="400" y="188" text-anchor="middle" fill="#98A1A7" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="15" letter-spacing="2">01 · 3/4 DELANTERA</text>
+</svg>
