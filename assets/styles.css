@@ -1109,4 +1109,4 @@ footer{padding:56px 0;background:var(--panel);}
 .contacto-datos dt{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);flex:none;}
 .contacto-datos dd{margin:0;font-size:14.5px;text-align:right;flex:1 1 60%;}
 @media (max-width:560px){ .contacto-datos dd{text-align:left;flex-basis:100%;} }
-
+.panel-oscuro>.plan-precio:first-child{margin-top:0;padding-top:0;border-top:0;}
