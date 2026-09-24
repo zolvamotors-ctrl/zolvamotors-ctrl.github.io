@@ -32,7 +32,7 @@ var SITE_CONFIG = {
      `url` sin barra final. Se usa en canonical, Open Graph y
      sitemap.xml. Mientras sea placeholder, no publicar.       */
   dominio: 'zolvamotors.netlify.app',
-  url:     'https://zolvamotors.netlify.app',
+  url:     'https://zolvamotors.com.ar',
 
   /* ---- Contacto ---------------------------------------------
      Los campos vacíos NO se renderizan (nada de links a "#"):

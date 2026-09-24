@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zolvamotors.netlify.app/sitemap.xml
+Sitemap: https://zolvamotors.com.ar/sitemap.xml
