@@ -42,11 +42,11 @@ var SITE_CONFIG = {
        que se publica y al que llegan los avisos del formulario (ver
        formulario/Codigo.gs → NOTIF_EMAIL). Si se vacía, deja de
        renderizarse en /contacto.html, en el pie y en /privacidad.html. */
-    whatsapp:          '5491140499479',
-    whatsapp_visible:  '+54 9 11 4049 9479',
+    whatsapp:          '5491124952513',
+    whatsapp_visible:  '+54 9 11 2495 2513',
     email:             'zolvamotors@gmail.com',
-    instagram_url:     '',
-    instagram_usuario: '',
+    instagram_url:     'https://instagram.com/zolva_motors',
+    instagram_usuario: 'zolva_motors',
     zona:              'AMBA — Zona Norte del Gran Buenos Aires',
     // Vacío a propósito: todavía no hay horario fijo de atención. Mientras
     // esté así, la fila "Horarios" no se renderiza en /contacto.html.
@@ -75,11 +75,12 @@ var SITE_CONFIG = {
   /* ---- Criterios de admisión de vehículos -------------------
      El build avisa por consola si un auto del JSON no los
      cumple. No los relaja: los reporta.                       */
-  criterios: {
-    anio_min:       2013,
-    km_max:         150000,
-    precio_min_usd: 7000
-  },
+  /* DADOS DE BAJA el 21/09/2026: Zolva ya no tiene criterio de
+     aceptación; se mira caso por caso. El objeto queda vacío a
+     propósito, no borrado: los chequeos del build lo leen y, si no
+     hay claves, no emiten aviso. Cuando se defina un criterio
+     nuevo se cargan acá y el aviso revive solo. */
+  criterios: {},
 
   /* ---- Umbrales del catálogo --------------------------------
      min_filtros → con menos autos disponibles que esto, la barra

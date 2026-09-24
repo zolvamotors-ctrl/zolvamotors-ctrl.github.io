@@ -396,3 +396,63 @@
     });
   }
 })();
+
+/* ============================================================
+   PRECARGA DESDE EL COTIZADOR DE LA PORTADA
+   ------------------------------------------------------------
+   La tarjeta del hero de index.html no calcula ningún precio:
+   hace GET a consigna-tu-auto.html con `vehiculo`, `anio` y `km`
+   y esta función los vuelca en el formulario largo, así la
+   persona no reescribe lo que ya tipeó.
+
+   `vehiculo` viene como un solo texto ("Ford Focus 1.6 S") y el
+   formulario tiene marca y modelo separados: se parte en el
+   primer espacio. Es una heurística, no una base de datos —
+   marcas de dos palabras (Alfa Romeo, Land Rover, Mercedes
+   Benz) se contemplan a mano abajo.
+
+   Sin JS el formulario sigue funcionando: los campos quedan
+   vacíos y la persona los completa, que es el comportamiento
+   que había antes de esto.
+   ============================================================ */
+(function precargaDesdeCotizador() {
+  var form = document.getElementById('marca');
+  if (!form) return;                       // no estamos en consigna-tu-auto
+  var q;
+  try { q = new URLSearchParams(window.location.search); } catch (e) { return; }
+  if (!q || !q.toString()) return;
+
+  var DOS_PALABRAS = ['alfa romeo', 'land rover', 'mercedes benz', 'mercedes-benz', 'great wall'];
+
+  function poner(id, valor) {
+    var el = document.getElementById(id);
+    if (!el || !valor) return;
+    el.value = String(valor).trim();
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  var vehiculo = (q.get('vehiculo') || '').trim().replace(/\s+/g, ' ');
+  if (vehiculo) {
+    var bajo = vehiculo.toLowerCase();
+    var corte = vehiculo.indexOf(' ');
+    for (var i = 0; i < DOS_PALABRAS.length; i++) {
+      if (bajo.indexOf(DOS_PALABRAS[i]) === 0) {
+        corte = DOS_PALABRAS[i].length;
+        break;
+      }
+    }
+    if (corte > 0) {
+      poner('marca', vehiculo.slice(0, corte));
+      poner('modelo', vehiculo.slice(corte));
+    } else {
+      poner('marca', vehiculo);
+    }
+  }
+  poner('anio', q.get('anio'));
+  poner('km', q.get('km'));
+
+  /* Llevar el foco al primer campo vacío que quedó, no al tope
+     de la página: la persona ya empezó a completar. */
+  var pendiente = document.getElementById('modelo');
+  if (pendiente && !pendiente.value) pendiente.focus({ preventScroll: true });
+})();

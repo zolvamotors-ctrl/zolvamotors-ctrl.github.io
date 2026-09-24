@@ -1,0 +1,24 @@
+ZOLVA — REDISEÑO v2
+===================
+
+Descomprimí este zip DENTRO de C:\Users\Ignacio Gomez\Claude\tmotors
+Las dos carpetas caen en su lugar y NO pisan nada del sitio actual:
+
+  webv2\                      el sitio v2 ya generado
+  scripts\build-webv2.js      el generador de v2
+  scripts\paginas-v2\         el contenido de las 8 páginas de v2
+
+Para verlo sin instalar nada: abrí webv2\index.html en el navegador.
+
+Para regenerarlo después de editar scripts\paginas-v2\:
+  $env:Path += ";C:\Program Files\nodejs"
+  node scripts\build-webv2.js
+
+QUÉ NO SE TOCÓ
+--------------
+web\, scripts\build-web.js y scripts\paginas\ quedaron exactamente
+como estaban. El sitio que está publicado hoy no cambió.
+
+OJO: el WhatsApp nuevo (+54 9 11 2495 2513) y el Instagram solo
+están en webv2\assets\config.js. El sitio viejo sigue publicando
+el número anterior.

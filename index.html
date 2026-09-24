@@ -5,24 +5,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zolva — Autos usados de particulares en venta</title>
-  <meta name="description" content="Catálogo de autos usados de particulares en AMBA — Zona Norte del Gran Buenos Aires. Publicados y gestionados por Zolva: filtramos consultas, negociamos y acompañamos hasta la transferencia. Comisión 5%, a cargo del vendedor.">
-  <meta name="theme-color" content="#0D1C33">
-  <meta name="color-scheme" content="light">
+  <title>Zolva — Consignación de autos usados en AMBA — Zona Norte del Gran Buenos Aires</title>
+  <meta name="description" content="Vendemos tu auto usado sin que lo entregues. Zolva publica, filtra consultas, negocia y acompaña hasta la transferencia. Comisión 5%, a cargo del vendedor y solo si se vende. AMBA — Zona Norte del Gran Buenos Aires.">
+  <meta name="theme-color" content="#0B1220">
+  <meta name="color-scheme" content="dark">
   <link rel="canonical" href="https://zolvamotors.netlify.app/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='5' fill='%2315181B'/%3E%3Cpath fill='white' d='M15 16 H49 V23 L23 41 H49 V48 H15 V41 L41 23 H15 Z'/%3E%3C/svg%3E">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_AR">
   <meta property="og:site_name" content="Zolva">
-  <meta property="og:title" content="Zolva — Autos usados de particulares en venta">
-  <meta property="og:description" content="Catálogo de autos usados de particulares en AMBA — Zona Norte del Gran Buenos Aires. Publicados y gestionados por Zolva: filtramos consultas, negociamos y acompañamos hasta la transferencia. Comisión 5%, a cargo del vendedor.">
+  <meta property="og:title" content="Zolva — Consignación de autos usados en AMBA — Zona Norte del Gran Buenos Aires">
+  <meta property="og:description" content="Vendemos tu auto usado sin que lo entregues. Zolva publica, filtra consultas, negocia y acompaña hasta la transferencia. Comisión 5%, a cargo del vendedor y solo si se vende. AMBA — Zona Norte del Gran Buenos Aires.">
   <meta property="og:url" content="https://zolvamotors.netlify.app/">
   <meta name="twitter:card" content="summary">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Lora:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Lora:wght@600&display=swap">
   <link rel="stylesheet" href="assets/styles.css">
   <script src="assets/config.js"></script>
 </head>
@@ -32,7 +32,6 @@
 <nav class="nav" id="top">
   <div class="wrap nav-in">
     <a class="logo" href="index.html" aria-label="Zolva, ir al catálogo" translate="no">
-      <svg class="logo-z" viewBox="0 0 64 64" width="23" height="23" aria-hidden="true"><path fill="currentColor" d="M14 14 H50 V21 L21.5 43 H50 V50 H14 V43 L42.5 21 H14 Z"/></svg>
       <span class="logo-mark">Zolva</span>
       <span class="logo-tag">Consignación digital</span>
     </a>
@@ -50,11 +49,200 @@
 
 <main id="contenido">
 
-<div class="ctx">
-  <div class="wrap">
-    <p>Autos de particulares, publicados y gestionados por nosotros. <b>Comisión 5%, la paga el vendedor.</b></p>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">AMBA — Zona Norte del Gran Buenos Aires</p>
+      <h1>Vos seguís usando el auto<br><em>Nosotros lo vendemos</em></h1>
+      <p class="hero-sub">Lo publicamos, filtramos a los curiosos y negociamos por vos. El auto se queda con vos y lo seguís usando — 5&nbsp;% del precio final, y solo cuando la venta se cierra</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="consigna-tu-auto.html">Consigná tu auto <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn btn-ghost btn-lg" href="como-funciona.html">Ver cómo funciona</a>
+      </div>
+      <p class="hero-note">Respondemos dentro de las 24 horas hábiles.</p>
+    </div>
+
+    <form class="tasa-card" action="consigna-tu-auto.html" method="get">
+      <div class="tasa-head">
+        <span class="eyebrow">Cotizá tu auto</span>
+        Contanos qué tenés y te damos una expectativa realista de precio
+      </div>
+      <div class="tasa-field">
+        <label for="q-marca">Marca y modelo</label>
+        <input id="q-marca" name="vehiculo" type="text" autocomplete="off" placeholder="Ford Focus 1.6 S">
+      </div>
+      <div class="tasa-field">
+        <label for="q-anio">Año</label>
+        <input id="q-anio" name="anio" type="number" inputmode="numeric" min="1990" max="2026" placeholder="2018">
+      </div>
+      <div class="tasa-field">
+        <label for="q-km">Kilómetros</label>
+        <input id="q-km" name="km" type="number" inputmode="numeric" min="0" step="1000" placeholder="57000">
+      </div>
+      <button class="btn btn-primary tasa-btn" type="submit">Cotizar mi auto <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <p class="tasa-foot">Seguís en el formulario, donde completás el resto. No publicamos tus datos ni la patente.</p>
+    </form>
   </div>
-</div>
+</section>
+<section class="trust">
+  <div class="wrap trust-in">
+    <span class="band-item">5&nbsp;% de comisión · solo si se vende</span>
+    <span class="band-item">30 días corridos de exclusividad · sin renovación automática</span>
+    <span class="band-item">Sin adelantos ni gastos de publicación</span>
+    <span class="band-item">Respondemos dentro de las 24 horas hábiles.</span>
+  </div>
+</section>
+<section class="claro" id="nosotros">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Acerca de nosotros</p>
+      <h2>Una consignataria sin local ni stock propio</h2>
+      <p class="hero-sub">Zolva es una agencia digital de intermediación para la venta de autos usados. No tenemos stock propio: los autos publicados pertenecen a sus titulares y siguen en su poder mientras los vendemos.</p>
+      <p class="hero-sub">Lo que no hacemos: comprar el auto, financiarlo, garantizarlo ni retenerlo. Solo lo necesitamos para la sesión de fotos, para las visitas coordinadas y —en el Plan Integral— el tiempo que lleve cada trámite.</p>
+      <div class="hero-cta">
+        <a class="btn btn-ghost" href="nosotros.html">Cómo trabajamos <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+    <div class="panel panel-oscuro">
+      <p class="plan-precio">5&nbsp;%</p>
+      <h3>del precio final de venta</h3>
+      <p>A cargo del vendedor, y solo cuando la operación se concreta. No hay costo de publicación, de fotos ni de mantenimiento del aviso. Si el auto no se vende, no se paga nada.</p>
+    </div>
+  </div>
+</section>
+<section id="proceso">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Cómo funciona</p>
+      <h2>Seis pasos. Vos intervenís en tres</h2>
+      <p>Desde el primer mensaje hasta la transferencia firmada, sin letra chica</p>
+    </div>
+    <ol class="steps">
+      <li class="step" data-reveal>
+        <span class="step-n">01</span>
+        <h3>Contacto</h3>
+        <p>Nos contás qué tenés a través del formulario. Respondemos dentro de las 24 horas hábiles.</p>
+      </li>
+      <li class="step" data-reveal>
+        <span class="step-n">02</span>
+        <h3>Tasación</h3>
+        <p>Analizamos comparables reales del mercado y el estado de la unidad. Definimos juntos tres números: precio publicado, precio objetivo y <b>precio mínimo autorizado</b>. Ese piso no se negocia sin tu autorización.</p>
+      </li>
+      <li class="step" data-reveal>
+        <span class="step-n">03</span>
+        <h3>Contrato y alta</h3>
+        <p>Elegís Esencial o Integral y firmamos la consignación por escrito: 30 días corridos de exclusividad, honorarios, gastos y obligaciones de cada parte.</p>
+      </li>
+      <li class="step" data-reveal>
+        <span class="step-n">04</span>
+        <h3>Preparación y publicación</h3>
+        <p>Fotografía profesional, ficha técnica y redacción del aviso. Publicamos en Mercado Libre, Marketplace, redes y nuestro catálogo.</p>
+      </li>
+      <li class="step" data-reveal>
+        <span class="step-n">05</span>
+        <h3>Filtro y negociación</h3>
+        <p>Todas las consultas entran por nosotros. Coordinamos visitas únicamente con compradores calificados y negociamos con tu precio mínimo como piso.</p>
+      </li>
+      <li class="step" data-reveal>
+        <span class="step-n">06</span>
+        <h3>Transferencia y cierre</h3>
+        <p>El comprador te paga directamente a vos. Recién con la transferencia concretada cobramos nosotros.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+<section class="claro">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Los dos planes</p>
+      <h2>Elegís cuánto querés delegar</h2>
+      <p>La comisión es la misma en los dos planes — lo que cambia es quién corre con los trámites</p>
+    </div>
+    <div class="planes">
+      <article class="plan" data-reveal>
+        <h3>Esencial</h3>
+        <div class="plan-precio">5&nbsp;% <span>del precio final</span></div>
+        <p class="plan-nota">Solo comercialización, los trámites los hace el propietario</p>
+        <ul class="compra-lista">
+          <li>Tasación con comparables reales</li>
+          <li>Fotografía profesional y aviso redactado</li>
+          <li>Publicación en portales y redes</li>
+          <li>Filtro de interesados y negociación</li>
+        </ul>
+        <a class="btn btn-ghost" href="como-funciona.html#planes">Ver qué incluye</a>
+      </article>
+      <article class="plan destacado" data-reveal>
+        <span class="plan-tag">Llave en mano</span>
+        <h3>Integral</h3>
+        <div class="plan-precio">5&nbsp;% <span>+ gestión presupuestada</span></div>
+        <p class="plan-nota">Todo lo del Esencial, con los trámites a cargo nuestro</p>
+        <ul class="compra-lista">
+          <li>VTV y verificación policial</li>
+          <li>Informes de dominio y libre deuda</li>
+          <li>CETA, formularios y turno registral</li>
+          <li>Presupuesto cerrado en el anexo</li>
+        </ul>
+        <a class="btn btn-primary" href="como-funciona.html#planes">Ver qué incluye <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Seguridad de la operación</p>
+      <h2>Cómo cuidamos que no se te complique</h2>
+    </div>
+    <div class="safe">
+      <div class="safe-item" data-reveal>
+        <h4>Filtro previo de compradores</h4>
+        <p>Ningún desconocido llega a tu casa sin pasar antes por nosotros. Registramos cada consulta, confirmamos identidad y capacidad de compra, y recién ahí coordinamos la visita.</p>
+      </div>
+      <div class="safe-item" data-reveal>
+        <h4>Precio mínimo autorizado</h4>
+        <p>Antes de publicar dejás por escrito el número por debajo del cual no se vende. Toda oferta menor te la trasladamos a vos: nosotros no decidimos por tu patrimonio.</p>
+      </div>
+      <div class="safe-item" data-reveal>
+        <h4>Documentación revisada de entrada</h4>
+        <p>Verificamos título, cédula, informe de dominio, prenda, multas y libre deuda antes de publicar. Los problemas documentales aparecen al principio, no el día de la transferencia.</p>
+      </div>
+      <div class="safe-item" data-reveal>
+        <h4>Todo por escrito</h4>
+        <p>Contrato de consignación con exclusividad, honorarios, gastos, obligaciones de cada parte y qué pasa si vendés el auto por tu cuenta. Lo leés antes de firmar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="claro blanco">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="reglas-title">Lo que no vas a escuchar de nosotros</h2>
+      <p class="reglas-lead">Cinco promesas que otros hacen y nosotros no</p>
+    </div>
+    <ul class="reglas">
+      <li>
+        <span class="no">NO</span>
+        <div><h4>“Te lo vendemos en 30 días garantizado”</h4><p>El contrato se firma por 30 días corridos, y ese plazo es de <b>gestión, no de resultado</b>: es el tiempo durante el cual trabajamos tu auto en exclusiva, no una promesa de que se venda. El mercado y el precio mandan.</p></div>
+      </li>
+      <li>
+        <span class="no">NO</span>
+        <div><h4>“Dejanos el auto en el local”</h4><p>El vehículo se queda con vos y lo seguís usando. Solo lo necesitamos para las fotos, para las visitas que coordinemos y —si elegís el Plan Integral— el rato que lleve cada trámite.</p></div>
+      </li>
+      <li>
+        <span class="no">NO</span>
+        <div><h4>“Adelantanos los gastos de publicación”</h4><p>La preparación comercial la financiamos nosotros. Si el auto no se vende, no nos pagás nada.</p></div>
+      </li>
+      <li>
+        <span class="no">NO</span>
+        <div><h4>“Nosotros cobramos y después te giramos”</h4><p>No manejamos el saldo de la operación: el comprador te lo paga a vos, directo. Lo único que recibimos es la reserva, en tu nombre y por tu cuenta, y con recibo. Si la venta se cae, esa plata vuelve a quien corresponde.</p></div>
+      </li>
+      <li>
+        <span class="no">NO</span>
+        <div><h4>“Ofrecemos financiación y garantía extendida”</h4><p>Todavía no trabajamos con esos productos. Cuando los sumemos, te lo vamos a decir.</p></div>
+      </li>
+    </ul>
+  </div>
+</section>
 
 <section class="vacio">
   <div class="wrap vacio-in">
@@ -68,27 +256,39 @@
   </div>
 </section>
 
-
-<section class="accesos" id="accesos">
-  <div class="wrap accesos-grid">
-    <a class="acceso" href="como-funciona.html">
-      <p class="eyebrow">01</p><h3>Cómo funciona</h3>
-      <p>Los seis pasos de una consignación, los dos planes y la comisión, explicados sin letra chica.</p>
-      <span class="acceso-mas">Ver el proceso <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
-    <a class="acceso" href="consigna-tu-auto.html">
-      <p class="eyebrow">02</p><h3>Consigná tu auto</h3>
-      <p>Contanos qué tenés. Revisamos si entra en nuestro perfil y te damos una expectativa de precio.</p>
-      <span class="acceso-mas">Precalificar <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
-    <a class="acceso" href="contacto.html">
-      <p class="eyebrow">03</p><h3>Contacto</h3>
-      <p>WhatsApp, zona de cobertura y tiempo de respuesta. Te contestamos dentro de las 24 horas hábiles.</p>
-      <span class="acceso-mas">Escribinos <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
+<section class="claro">
+  <div class="wrap trans-grid">
+    <div>
+      <h2>Qué no somos</h2>
+      <ul class="compra-lista">
+        <li><b>No somos un marketplace.</b> Nadie publica por su cuenta: cada unidad la damos de alta nosotros después de revisarla.</li>
+        <li><b>No somos una automotora.</b> No compramos autos para revender ni tomamos unidades en parte de pago.</li>
+        <li><b>No damos garantía ni financiación.</b> Todavía no trabajamos con esos productos. Si algún día los sumamos, lo vas a leer acá.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Dónde operamos</h2>
+      <p class="compra-nota">AMBA — Zona Norte del Gran Buenos Aires. Las visitas se coordinan en la zona donde está el vehículo, siempre con el titular presente.</p>
+      <div class="panel">
+        <h3>Sobre las reseñas</h3>
+        <p>No vas a encontrar testimonios ni puntajes en este sitio. Cuando tengamos ventas cerradas y clientes dispuestos a dejar su testimonio por escrito, van a aparecer con nombre y operación. Inventarlos sería empezar por el lugar equivocado.</p>
+      </div>
+    </div>
   </div>
 </section>
-
+<section class="consigna" id="consignacion">
+  <div class="wrap consigna-in">
+    <div>
+      <p class="eyebrow">Consignación</p>
+      <h2>¿Querés que veamos tu auto?</h2>
+      <p>Contanos qué tenés y te damos una expectativa realista de precio. Cobramos 5% del precio final, y solo cuando la operación se concreta.</p>
+    </div>
+    <div class="consigna-cta">
+      <a class="btn btn-primary" href="consigna-tu-auto.html">Consigná tu auto <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="btn btn-ghost" href="como-funciona.html">Cómo funciona</a>
+    </div>
+  </div>
+</section>
 <script type="application/json" id="datosCatalogo">[]</script>
 </main>
 
@@ -96,7 +296,7 @@
   <div class="wrap">
     <div class="pie-top">
       <div class="pie-marca">
-        <span class="logo-lockup" translate="no"><svg class="logo-z" viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M14 14 H50 V21 L21.5 43 H50 V50 H14 V43 L42.5 21 H14 Z"/></svg><span class="logo-mark">Zolva</span></span>
+        <span class="logo-lockup" translate="no"><span class="logo-mark">Zolva</span></span>
         <p>Vos seguís usando el auto; nosotros nos ocupamos de venderlo. Consignación de autos usados.</p>
       </div>
       <nav class="pie-cols" aria-label="Pie de página">
@@ -112,7 +312,7 @@
     </div>
     
     <div class="pie-legal">
-      <div class="pie-redes"><a class="foot-red" href="https://wa.me/5491140499479" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 2.1.55 4.15 1.6 5.96L2 22l4.25-1.11a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C20.95 6.45 16.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.05-1.14.28-3.68-.77-3.11-1.29-5.09-4.48-5.24-4.69-.15-.2-1.25-1.66-1.25-3.16 0-1.5.79-2.24 1.07-2.55.27-.3.6-.38.8-.38.2 0 .4 0 .58.01.19.01.44-.07.68.52.24.6.83 2.06.9 2.21.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2.01.96.3.15.5.22.57.35.07.13.07.73-.17 1.4Z"/></svg> +54&nbsp;9&nbsp;11&nbsp;4049&nbsp;9479</a><a class="foot-red" href="mailto:zolvamotors@gmail.com">zolvamotors@gmail.com</a></div>
+      <div class="pie-redes"><a class="foot-red" href="https://instagram.com/zolva_motors" target="_blank" rel="noopener">Instagram zolva_motors</a><a class="foot-red" href="https://wa.me/5491124952513" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 2.1.55 4.15 1.6 5.96L2 22l4.25-1.11a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C20.95 6.45 16.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.05-1.14.28-3.68-.77-3.11-1.29-5.09-4.48-5.24-4.69-.15-.2-1.25-1.66-1.25-3.16 0-1.5.79-2.24 1.07-2.55.27-.3.6-.38.8-.38.2 0 .4 0 .58.01.19.01.44-.07.68.52.24.6.83 2.06.9 2.21.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2.01.96.3.15.5.22.57.35.07.13.07.73-.17 1.4Z"/></svg> +54&nbsp;9&nbsp;11&nbsp;2495&nbsp;2513</a><a class="foot-red" href="mailto:zolvamotors@gmail.com">zolvamotors@gmail.com</a></div>
       <p>© 2026 Zolva. Todos los derechos reservados.</p>
       <p class="pie-aclara">Los precios están expresados en dólares estadounidenses. Los vehículos publicados pertenecen a sus titulares; actuamos como intermediarios.</p>
     </div>
