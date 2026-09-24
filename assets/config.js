@@ -31,7 +31,7 @@ var SITE_CONFIG = {
   /* ---- Dominio y URLs ---------------------------------------
      `url` sin barra final. Se usa en canonical, Open Graph y
      sitemap.xml. Mientras sea placeholder, no publicar.       */
-  dominio: 'zolvamotors.netlify.app',
+  dominio: 'zolvamotors.com.ar',
   url:     'https://zolvamotors.com.ar',
 
   /* ---- Contacto ---------------------------------------------
