@@ -2,47 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://zolvamotors.com.ar/</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://zolvamotors.com.ar/autos/ford-focus-1-6-s-sedan-2018-zm-0001.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zolvamotors.com.ar/autos/renault-clio-mio-1-2-comfort-pack-5p-2016-zm-0002.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zolvamotors.com.ar/autos/citroen-c4-grand-picasso-1-6-hdi-110-cv-7-plazas-2013-zm-0003.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://zolvamotors.com.ar/como-funciona.html</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://zolvamotors.com.ar/consigna-tu-auto.html</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://zolvamotors.com.ar/contacto.html</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://zolvamotors.com.ar/defensa-del-consumidor.html</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://zolvamotors.com.ar/nosotros.html</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://zolvamotors.com.ar/preguntas-frecuentes.html</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://zolvamotors.com.ar/privacidad.html</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://zolvamotors.com.ar/terminos.html</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <priority>0.5</priority>
   </url>
 </urlset>

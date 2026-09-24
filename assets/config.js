@@ -67,9 +67,9 @@ var SITE_CONFIG = {
      mostrar una referencia orientativa, más chica, bajo el
      precio en dólares, y siempre con la fecha a la vista.     */
   tipo_cambio: {
-    valor:  1450,
-    fecha:  '2026-08-31',
-    fuente: 'dólar MEP'
+    valor:  1515,
+    fecha:  '2026-09-24',
+    fuente: 'cotización de referencia'
   },
 
   /* ---- Criterios de admisión de vehículos -------------------

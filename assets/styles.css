@@ -972,7 +972,7 @@ footer{padding:56px 0;background:var(--panel);}
 .ficha-bloque{margin-top:42px;}
 .ficha-bloque h2{font-size:18px;font-weight:600;padding-bottom:11px;border-bottom:1px solid var(--line);}
 .ficha-sub{margin-top:12px;font-size:13.5px;color:var(--ink-2);}
-.ficha-desc{margin-top:16px;font-size:15px;color:var(--ink-2);max-width:70ch;}
+.ficha-desc{margin-top:16px;white-space:pre-line;font-size:15px;color:var(--ink-2);max-width:70ch;}
 
 /* ---- semáforo de documentación ---- */
 /* Flex y no grid: son cinco ítems y en una grilla de tres columnas la

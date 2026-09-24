@@ -244,15 +244,58 @@
   </div>
 </section>
 
-<section class="vacio">
-  <div class="wrap vacio-in">
-    <p class="eyebrow">Catálogo</p>
-    <h2>Estamos incorporando las primeras unidades</h2>
-    <p>Todavía no hay autos publicados. Trabajamos con vehículos de particulares, uno por uno: cada unidad se revisa, se tasa y se publica con la documentación verificada. Si querés que el tuyo sea uno de ellos, empezá por acá.</p>
-    <div class="vacio-cta">
-      <a class="btn btn-primary" href="consigna-tu-auto.html">Consigná tu auto <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      <a class="btn btn-ghost" href="como-funciona.html">Ver cómo funciona</a>
+<section class="catalogo" id="catalogo">
+  <div class="wrap">
+    <div class="catalogo-head">
+      <h2 class="catalogo-titulo">Unidades publicadas</h2>
+      <p class="catalogo-cuenta mono" id="cuenta" role="status" aria-live="polite">3 autos</p>
+      
     </div>
+    <div class="grilla grilla-curada" id="grilla">
+<article class="auto auto-curada" data-codigo="ZM-0001">
+  <a class="auto-link" href="autos/ford-focus-1-6-s-sedan-2018-zm-0001.html" aria-label="Ver ficha de Ford Focus 1.6 S Sedán 2018">
+    <div class="auto-foto">
+      
+      <img src="assets/autos/zm-0001/01.webp" alt="Ford Focus 1.6 S Sedán 2018" width="800" height="600" decoding="async">
+    </div>
+    <div class="auto-cuerpo">
+      <p class="auto-marca">Ford</p>
+      <h3 class="auto-modelo">Focus <span>1.6 S Sedán</span></h3>
+      <p class="auto-precio"><span class="cur">US$</span> 15.500</p>
+      <p class="auto-datos mono"><span>2018</span><i aria-hidden="true">·</i><span>58.000 km</span><i aria-hidden="true">·</i><span>Manual</span><i aria-hidden="true">·</i><span>Nordelta / General Pacheco</span></p>
+    </div>
+  </a>
+</article>
+<article class="auto auto-curada" data-codigo="ZM-0002">
+  <a class="auto-link" href="autos/renault-clio-mio-1-2-comfort-pack-5p-2016-zm-0002.html" aria-label="Ver ficha de Renault Clio Mio 1.2 Comfort Pack 5P 2016">
+    <div class="auto-foto">
+      
+      <img src="assets/autos/zm-0002/01.webp" alt="Renault Clio Mio 1.2 Comfort Pack 5P 2016" width="800" height="600" decoding="async">
+    </div>
+    <div class="auto-cuerpo">
+      <p class="auto-marca">Renault</p>
+      <h3 class="auto-modelo">Clio Mio <span>1.2 Comfort Pack 5P</span></h3>
+      <p class="auto-precio"><span class="cur">US$</span> 8.000</p>
+      <p class="auto-datos mono"><span>2016</span><i aria-hidden="true">·</i><span>60.000 km</span><i aria-hidden="true">·</i><span>Manual</span><i aria-hidden="true">·</i><span>Nordelta / General Pacheco</span></p>
+    </div>
+  </a>
+</article>
+<article class="auto auto-curada" data-codigo="ZM-0003">
+  <a class="auto-link" href="autos/citroen-c4-grand-picasso-1-6-hdi-110-cv-7-plazas-2013-zm-0003.html" aria-label="Ver ficha de Citroën C4 Grand Picasso 1.6 HDi 110 CV 7 plazas 2013">
+    <div class="auto-foto">
+      
+      <img src="assets/autos/zm-0003/01.webp" alt="Citroën C4 Grand Picasso 1.6 HDi 110 CV 7 plazas 2013" width="800" height="600" decoding="async">
+    </div>
+    <div class="auto-cuerpo">
+      <p class="auto-marca">Citroën</p>
+      <h3 class="auto-modelo">C4 Grand Picasso <span>1.6 HDi 110 CV 7 plazas</span></h3>
+      <p class="auto-precio"><span class="cur">US$</span> 8.911</p>
+      <p class="auto-datos mono"><span>2013</span><i aria-hidden="true">·</i><span>167.000 km</span><i aria-hidden="true">·</i><span>Manual</span><i aria-hidden="true">·</i><span>Nordelta / General Pacheco</span></p>
+    </div>
+  </a>
+</article>
+    </div>
+    <p class="sin-resultados" id="sinResultados" hidden></p>
   </div>
 </section>
 
@@ -289,7 +332,7 @@
     </div>
   </div>
 </section>
-<script type="application/json" id="datosCatalogo">[]</script>
+<script type="application/json" id="datosCatalogo">[{"codigo":"ZM-0001","estado":"disponible","destacado":false,"marca":"Ford","modelo":"Focus","version":"1.6 S Sedán","anio":2018,"km":58000,"combustible":"Nafta","transmision":"Manual","carroceria":"Sedán","precio_usd":15500,"localidad":"Nordelta / General Pacheco","fecha_publicacion":"2026-09-24","url":"autos/ford-focus-1-6-s-sedan-2018-zm-0001.html","nombre":"Ford Focus 1.6 S Sedán 2018","foto":"/assets/autos/zm-0001/01.webp"},{"codigo":"ZM-0002","estado":"disponible","destacado":false,"marca":"Renault","modelo":"Clio Mio","version":"1.2 Comfort Pack 5P","anio":2016,"km":60000,"combustible":"Nafta","transmision":"Manual","carroceria":"Hatchback","precio_usd":8000,"localidad":"Nordelta / General Pacheco","fecha_publicacion":"2026-09-24","url":"autos/renault-clio-mio-1-2-comfort-pack-5p-2016-zm-0002.html","nombre":"Renault Clio Mio 1.2 Comfort Pack 5P 2016","foto":"/assets/autos/zm-0002/01.webp"},{"codigo":"ZM-0003","estado":"disponible","destacado":false,"marca":"Citroën","modelo":"C4 Grand Picasso","version":"1.6 HDi 110 CV 7 plazas","anio":2013,"km":167000,"combustible":"Diesel","transmision":"Manual","carroceria":"Monovolumen","precio_usd":8911,"localidad":"Nordelta / General Pacheco","fecha_publicacion":"2026-09-24","url":"autos/citroen-c4-grand-picasso-1-6-hdi-110-cv-7-plazas-2013-zm-0003.html","nombre":"Citroën C4 Grand Picasso 1.6 HDi 110 CV 7 plazas 2013","foto":"/assets/autos/zm-0003/01.webp"}]</script>
 </main>
 
 <footer class="pie">
