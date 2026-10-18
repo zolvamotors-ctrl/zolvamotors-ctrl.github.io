@@ -15,19 +15,43 @@
 
   /* ============ referencia en pesos ============
      El catálogo es en dólares. Esto es una referencia orientativa,
-     más chica, con la fecha del tipo de cambio a la vista. */
+     más chica, con la fecha del tipo de cambio a la vista.
+     Al abrir la ficha se pide la cotización del dólar blue del día
+     (venta) a dolarapi.com. Si no responde en 4 segundos, se usa el
+     valor de respaldo de config.js → tipo_cambio. */
   (function pesos() {
-    var tc = CFG.tipo_cambio;
-    if (!tc || !tc.valor) return;
+    var els = document.querySelectorAll('.precio-ars[data-usd]');
+    if (!els.length) return;
     var fmt = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
-    var fecha = String(tc.fecha).split('-').reverse().join('/');
-    [].forEach.call(document.querySelectorAll('.precio-ars[data-usd]'), function (el) {
-      var usd = parseInt(el.getAttribute('data-usd'), 10);
-      if (!usd) return;
-      el.textContent = '≈ $ ' + fmt.format(usd * tc.valor) +
-        ' · referencia orientativa al ' + fecha + ' (' + tc.fuente + ')';
-      el.hidden = false;
-    });
+
+    function pintar(valor, fechaISO, fuente) {
+      if (!valor) return;
+      var fecha = String(fechaISO).slice(0, 10).split('-').reverse().join('/');
+      [].forEach.call(els, function (el) {
+        var usd = parseInt(el.getAttribute('data-usd'), 10);
+        if (!usd) return;
+        el.textContent = '≈ $ ' + fmt.format(usd * valor) +
+          ' · referencia orientativa al ' + fecha + ' (' + fuente + ')';
+        el.hidden = false;
+      });
+    }
+
+    var tc = CFG.tipo_cambio || {};
+    var respaldo = function () { pintar(tc.valor, tc.fecha, tc.fuente); };
+    if (!window.fetch) return respaldo();
+
+    var listo = false;
+    var reloj = setTimeout(function () { if (!listo) { listo = true; respaldo(); } }, 4000);
+    fetch('https://dolarapi.com/v1/dolares/blue', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) {
+        var v = Number(d && d.venta);
+        if (!(v > 100)) throw new Error('valor raro');
+        clearTimeout(reloj);
+        listo = true;
+        pintar(v, d.fechaActualizacion || new Date().toISOString(), 'dólar blue');
+      })
+      .catch(function () { if (!listo) { listo = true; clearTimeout(reloj); respaldo(); } });
   })();
 
   /* ============ galería ============ */

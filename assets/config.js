@@ -66,10 +66,12 @@ var SITE_CONFIG = {
      Los precios del catálogo son en USD. Esto se usa SOLO para
      mostrar una referencia orientativa, más chica, bajo el
      precio en dólares, y siempre con la fecha a la vista.     */
+  /* La ficha toma sola el dólar blue del día (dolarapi.com).
+     Estos valores son solo el RESPALDO si ese servicio no responde. */
   tipo_cambio: {
-    valor:  1515,
-    fecha:  '2026-09-24',
-    fuente: 'cotización de referencia'
+    valor:  1555,
+    fecha:  '2026-10-17',
+    fuente: 'dólar blue'
   },
 
   /* ---- Criterios de admisión de vehículos -------------------
