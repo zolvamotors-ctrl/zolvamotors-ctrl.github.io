@@ -148,7 +148,7 @@
 
   function calc() {
     var p = parseInt(slider.value, 10);
-    var c = Math.round(p * ((CFG.comision_pct || 5) / 100));
+    var c = Math.round(p * ((CFG.comision_pct || 4) / 100));
     tween(out, p, '');
     tween(rP, p, 'US$ ');
     tween(rC, c, 'US$ ');

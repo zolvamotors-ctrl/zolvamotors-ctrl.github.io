@@ -59,7 +59,7 @@ var SITE_CONFIG = {
      Estos números salen del contrato. Cambiarlos acá cambia
      todos los textos generados; no los toques sin revisar
      `docs/validacion-legal.md`.                               */
-  comision_pct:  5,
+  comision_pct:  4,   // 4% desde el 19/10/2026 (antes 5%)
   exclusividad:  '30 días corridos',
 
   /* ---- Referencia en pesos ----------------------------------
