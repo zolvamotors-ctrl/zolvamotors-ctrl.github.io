@@ -22,12 +22,13 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Lora:wght@600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Lora:wght@600&display=swap">
   <link rel="stylesheet" href="assets/styles.css">
   <script src="assets/config.js"></script>
 </head>
 <body class="pag-texto">
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
+<p class="sr-only" id="copyStatus" role="status" aria-live="polite"></p>
 
 <nav class="nav" id="top">
   <div class="wrap nav-in">
@@ -50,7 +51,7 @@
 <main id="contenido">
 <header class="wrap pag-head">
   <span class="eyebrow">El proceso</span>
-  <h1>Vos seguís usando el auto. Nosotros lo vendemos.</h1>
+  <h1 class="split"><span class="w"><span style="--i:0">Vos</span></span> <span class="w"><span style="--i:1">seguís</span></span> <span class="w"><span style="--i:2">usando</span></span> <span class="w"><span style="--i:3">el</span></span> <span class="w"><span style="--i:4">auto.</span></span> <span class="w"><span style="--i:5">Nosotros</span></span> <span class="w"><span style="--i:6">lo</span></span> <span class="w"><span style="--i:7">vendemos</span></span></h1>
   <p>Consignación digital: el vehículo se queda con su propietario y el trabajo comercial queda con nosotros. Cobramos <b>4% del precio final de venta</b>, a cargo del vendedor, y se paga al concretarse la transferencia.</p>
 </header>
 
@@ -58,37 +59,37 @@
   <div class="wrap">
     <div class="sec-head" data-reveal>
       <span class="eyebrow">El recorrido</span>
-      <h2>Seis pasos. Vos intervenís en tres.</h2>
-      <p>Este es el recorrido completo, sin sorpresas en el medio.</p>
+      <h2 class="split"><span class="w"><span style="--i:0">Seis</span></span> <span class="w"><span style="--i:1">pasos.</span></span> <span class="w"><span style="--i:2">Vos</span></span> <span class="w"><span style="--i:3">intervenís</span></span> <span class="w"><span style="--i:4">en</span></span> <span class="w"><span style="--i:5">tres</span></span></h2>
+      <p>Este es el recorrido completo, sin sorpresas en el medio</p>
     </div>
-    <ol class="steps">
+    <ol class="steps" data-steps>
       <li class="step" data-reveal>
-        <span class="step-n">01</span>
+        <span class="step-mark" aria-hidden="true"></span><span class="step-n">01</span>
         <h3>Contacto</h3>
         <p>Nos contás qué tenés a través del formulario. Revisamos el estado y la documentación y te respondemos con una expectativa realista de precio.</p>
       </li>
-      <li class="step" data-reveal>
-        <span class="step-n">02</span>
+      <li class="step step-dueno" data-reveal>
+        <span class="step-mark" aria-hidden="true"></span><span class="step-n">02</span><span class="step-vos">Intervenís vos</span>
         <h3>Tasación</h3>
         <p>Analizamos comparables reales del mercado y el estado de la unidad. Definimos juntos tres números: precio publicado, precio objetivo y <b>precio mínimo autorizado</b>. Ese piso no se negocia sin tu autorización.</p>
       </li>
-      <li class="step" data-reveal>
-        <span class="step-n">03</span>
+      <li class="step step-dueno" data-reveal>
+        <span class="step-mark" aria-hidden="true"></span><span class="step-n">03</span><span class="step-vos">Intervenís vos</span>
         <h3>Contrato y alta</h3>
         <p>Elegís Esencial o Integral y firmamos la consignación por escrito: 30 días corridos de exclusividad renovables, honorarios, gastos y obligaciones de cada parte. Si vas por el Integral, el presupuesto de gestión queda cerrado en el anexo.</p>
       </li>
       <li class="step" data-reveal>
-        <span class="step-n">04</span>
+        <span class="step-mark" aria-hidden="true"></span><span class="step-n">04</span>
         <h3>Preparación y publicación</h3>
         <p>Fotografía profesional, ficha técnica y redacción del aviso. Publicamos en Mercado Libre, Marketplace, redes y nuestro catálogo. En el Plan Integral, además, salimos a hacer VTV, verificación, informes y libre deuda antes de publicar.</p>
       </li>
       <li class="step" data-reveal>
-        <span class="step-n">05</span>
+        <span class="step-mark" aria-hidden="true"></span><span class="step-n">05</span>
         <h3>Filtro y negociación</h3>
         <p>Todas las consultas entran por nosotros. Coordinamos visitas únicamente con compradores calificados y negociamos con tu precio mínimo como piso. Vos no atendés curiosos ni coordinás visitas a horarios imposibles.</p>
       </li>
-      <li class="step" data-reveal>
-        <span class="step-n">06</span>
+      <li class="step step-dueno" data-reveal>
+        <span class="step-mark" aria-hidden="true"></span><span class="step-n">06</span><span class="step-vos">Intervenís vos</span>
         <h3>Transferencia y cierre</h3>
         <p>En el Esencial te acompañamos con la documentación; en el Integral hacemos el trámite completo y te lo dejamos listo para firmar. <b>El comprador te paga directamente a vos.</b> Recién con la transferencia concretada cobramos.</p>
       </li>
@@ -96,17 +97,46 @@
   </div>
 </section>
 
+<section class="plata" id="circuito" aria-labelledby="plata-t">
+  <div class="plata-pista">
+    <div class="plata-stage">
+      <div class="fx" aria-hidden="true"><span class="dots"></span></div>
+      <div class="wrap plata-in">
+        <div class="plata-top">
+          <span class="eyebrow">Esquema ilustrativo</span>
+          <button class="plata-saltear" type="button" hidden>Saltear</button>
+        </div>
+        <h2 id="plata-t">No tocamos la plata de la operación</h2>
+        <p class="plata-auto"><span aria-hidden="true"></span>El auto sigue en la casa del dueño</p>
+        <div class="plata-mapa" aria-hidden="true">
+          <div class="plata-actores"><span>Comprador</span><span>Dueño</span><span>Zolva</span></div>
+          <div class="plata-fila" data-de="0" data-a="1"><span class="ficha">Seña</span><span class="plata-ok"><svg class="i-si" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Comprobante verificado</span></div>
+          <div class="plata-fila" data-de="0" data-a="1"><span class="ficha">Saldo</span><span class="plata-ok"><svg class="i-si" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Comprobante verificado</span></div>
+          <div class="plata-fila" data-de="1" data-a="2"><span class="ficha">4 %</span></div>
+        </div>
+        <p class="plata-cap" aria-hidden="true"></p>
+        <ol class="plata-pasos">
+          <li>La seña y el saldo te los paga el comprador a vos, directo</li>
+          <li>Nosotros verificamos los comprobantes</li>
+          <li>Recién cuando cobrás y se cierra la venta nos pagás nuestra comisión</li>
+          <li>Si la venta se cae, la seña nunca pasó por nuestras manos: su destino es el que fija el acta de reserva</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="planes">
   <div class="wrap">
     <div class="sec-head" data-reveal>
       <span class="eyebrow">Dos formas de trabajar</span>
-      <h2>Elegís cuánto querés delegar</h2>
+      <h2 class="split"><span class="w"><span style="--i:0">Elegís</span></span> <span class="w"><span style="--i:1">cuánto</span></span> <span class="w"><span style="--i:2">querés</span></span> <span class="w"><span style="--i:3">delegar</span></span></h2>
       <p>La comisión del 4% es la misma en los dos planes y se paga igual: solo cuando el auto se vende. Lo que cambia es quién se ocupa de los papeles.</p>
     </div>
     <div class="planes">
 
       <article class="plan" data-reveal>
-        <span class="plan-tag">Plan 01</span>
+        <div class="plan-top"><span class="plan-tag">Plan 01</span><span class="lights" data-lit="1" aria-hidden="true"><span></span><span></span></span></div><span class="sr-only">Nivel 1 de 2</span>
         <h3>Esencial</h3>
         <p class="para">Para el que tiene los papeles en regla y solo necesita que le vendan el auto.</p>
         <div class="plan-precio">
@@ -126,7 +156,7 @@
       </article>
 
       <article class="plan destacado" data-reveal>
-        <span class="plan-tag">Plan 02 · Recomendado</span>
+        <div class="plan-top"><span class="plan-tag">Plan 02 · Recomendado</span><span class="lights" data-lit="2" aria-hidden="true"><span></span><span></span></span></div><span class="sr-only">Nivel 2 de 2</span>
         <h3>Integral</h3>
         <p class="para">Para el que no quiere hacer una sola cola. Nos ocupamos de todo y vos firmás.</p>
         <div class="plan-precio">
@@ -135,7 +165,7 @@
           <div class="extra">+ Cargo de Gestión Integral, presupuestado y cerrado antes de firmar</div>
         </div>
         <ul>
-          <li><svg class="i-si" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Todo lo del Plan Esencial</li>
+          <li class="prev"><svg class="i-si" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Todo lo del Plan Esencial</li>
           <li><svg class="i-si" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Informe de dominio e histórico de dominio</li>
           <li><svg class="i-si" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Turno y realización de la VTV</li>
           <li><svg class="i-si" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Verificación policial de autopartes</li>
@@ -158,7 +188,7 @@
   <div class="wrap">
     <div class="sec-head" data-reveal>
       <span class="eyebrow">Reparto de tareas</span>
-      <h2>Quién hace qué, en cada plan</h2>
+      <h2 class="split"><span class="w"><span style="--i:0">Quién</span></span> <span class="w"><span style="--i:1">hace</span></span> <span class="w"><span style="--i:2">qué,</span></span> <span class="w"><span style="--i:3">en</span></span> <span class="w"><span style="--i:4">cada</span></span> <span class="w"><span style="--i:5">plan</span></span></h2>
       <p>Preferimos decirlo antes de firmar. La mayoría de los problemas en una consignación aparecen porque nadie definió esto por escrito.</p>
     </div>
     <div class="tabla-wrap" data-reveal>
@@ -204,7 +234,7 @@
   <div class="wrap">
     <div class="sec-head" data-reveal>
       <span class="eyebrow">Transparencia</span>
-      <h2><span class="figure">4%</span>Una sola comisión, y recién al final</h2>
+      <h2><span class="figure"><span class="roll">4</span>%</span>Una sola comisión, y recién al final</h2>
       <p>Sobre el precio final de venta, a cargo del vendedor, al concretarse la transferencia. No hay costo de publicación, ni de fotos, ni de mantenimiento del aviso.</p>
     </div>
 
@@ -233,27 +263,27 @@
 
       <div data-reveal>
         <h3 class="reglas-title">Lo que no vas a escuchar de nosotros</h3>
-        <p class="reglas-lead">Cinco promesas que otros hacen y nosotros no.</p>
+        <p class="reglas-lead">Cinco promesas que otros hacen y nosotros no</p>
         <ul class="reglas">
-          <li>
+          <li data-reveal>
             <span class="no">NO</span>
-            <div><h4>“Te lo vendemos en 30 días garantizado”</h4><p>El contrato se firma por 30 días corridos, y ese plazo es de <b>gestión, no de resultado</b>: es el tiempo durante el cual trabajamos tu auto en exclusiva, no una promesa de que se venda. Vender dentro de ese plazo es nuestro objetivo interno y el número contra el que nos medimos. El mercado y el precio mandan.</p></div>
+            <div><h4><span class="tacha">“Te lo vendemos en 30 días garantizado”</span></h4><p>El contrato se firma por 30 días corridos, y ese plazo es de <b>gestión, no de resultado</b>: es el tiempo durante el cual trabajamos tu auto en exclusiva, no una promesa de que se venda. Vender dentro de ese plazo es nuestro objetivo interno y el número contra el que nos medimos. El mercado y el precio mandan.</p></div>
           </li>
-          <li>
+          <li data-reveal>
             <span class="no">NO</span>
-            <div><h4>“Dejanos el auto en el local”</h4><p>El vehículo se queda con vos y lo seguís usando. Solo lo necesitamos para las fotos, para las visitas que coordinemos y —si elegís el Plan Integral— el rato que lleve cada trámite.</p></div>
+            <div><h4><span class="tacha">“Dejanos el auto en el local”</span></h4><p>El vehículo se queda con vos y lo seguís usando. Solo lo necesitamos para las fotos, para las visitas que coordinemos y —si elegís el Plan Integral— el rato que lleve cada trámite.</p></div>
           </li>
-          <li>
+          <li data-reveal>
             <span class="no">NO</span>
-            <div><h4>“Adelantanos los gastos de publicación”</h4><p>La preparación comercial la financiamos nosotros. Si el auto no se vende, no nos pagás nada.</p></div>
+            <div><h4><span class="tacha">“Adelantanos los gastos de publicación”</span></h4><p>La preparación comercial la financiamos nosotros. Si el auto no se vende, no nos pagás nada.</p></div>
           </li>
-          <li>
+          <li data-reveal>
             <span class="no">NO</span>
-            <div><h4>“Nosotros cobramos y después te giramos”</h4><p>No tocamos la plata de la operación: <b>la seña y el saldo te los paga el comprador a vos, directo</b>. Nosotros verificamos los comprobantes, y recién cuando cobrás y se cierra la venta nos pagás nuestra comisión. Si la venta se cae, la seña nunca pasó por nuestras manos: su destino es el que fija el acta de reserva.</p></div>
+            <div><h4><span class="tacha">“Nosotros cobramos y después te giramos”</span></h4><p>No tocamos la plata de la operación: <b>la seña y el saldo te los paga el comprador a vos, directo</b>. Nosotros verificamos los comprobantes, y recién cuando cobrás y se cierra la venta nos pagás nuestra comisión. Si la venta se cae, la seña nunca pasó por nuestras manos: su destino es el que fija el acta de reserva.</p></div>
           </li>
-          <li>
+          <li data-reveal>
             <span class="no">NO</span>
-            <div><h4>“Ofrecemos financiación y garantía extendida”</h4><p>Todavía no trabajamos con esos productos. Cuando los sumemos, te lo vamos a decir.</p></div>
+            <div><h4><span class="tacha">“Ofrecemos financiación y garantía extendida”</span></h4><p>Todavía no trabajamos con esos productos. Cuando los sumemos, te lo vamos a decir.</p></div>
           </li>
         </ul>
       </div>
@@ -265,7 +295,7 @@
   <div class="wrap">
     <div class="sec-head" data-reveal>
       <span class="eyebrow">Seguridad de la operación</span>
-      <h2>Cómo cuidamos que no se te complique</h2>
+      <h2 class="split"><span class="w"><span style="--i:0">Cómo</span></span> <span class="w"><span style="--i:1">cuidamos</span></span> <span class="w"><span style="--i:2">que</span></span> <span class="w"><span style="--i:3">no</span></span> <span class="w"><span style="--i:4">se</span></span> <span class="w"><span style="--i:5">te</span></span> <span class="w"><span style="--i:6">complique</span></span></h2>
     </div>
     <div class="safe">
       <div class="safe-item" data-reveal>
@@ -296,7 +326,7 @@
       <p>Contanos qué tenés. Revisamos el estado y la documentación y te respondemos con una expectativa realista de precio. Lleva tres minutos y no te compromete a nada.</p>
     </div>
     <div class="consigna-cta">
-      <a class="btn btn-primary" href="consigna-tu-auto.html">Consigná tu auto <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="btn btn-primary" href="consigna-tu-auto.html">Consigná tu auto <svg class="i-flecha" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a class="btn btn-ghost" href="preguntas-frecuentes.html">Preguntas frecuentes</a>
     </div>
   </div>
@@ -323,7 +353,7 @@
     </div>
     
     <div class="pie-legal">
-      <div class="pie-redes"><a class="foot-red" href="https://instagram.com/zolva_motors" target="_blank" rel="noopener">Instagram zolva_motors</a><a class="foot-red" href="https://wa.me/5491124952513" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 2.1.55 4.15 1.6 5.96L2 22l4.25-1.11a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C20.95 6.45 16.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.05-1.14.28-3.68-.77-3.11-1.29-5.09-4.48-5.24-4.69-.15-.2-1.25-1.66-1.25-3.16 0-1.5.79-2.24 1.07-2.55.27-.3.6-.38.8-.38.2 0 .4 0 .58.01.19.01.44-.07.68.52.24.6.83 2.06.9 2.21.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2.01.96.3.15.5.22.57.35.07.13.07.73-.17 1.4Z"/></svg> +54&nbsp;9&nbsp;11&nbsp;2495&nbsp;2513</a><a class="foot-red" href="mailto:zolvamotors@gmail.com">zolvamotors@gmail.com</a></div>
+      <div class="pie-redes"><a class="foot-red" href="https://instagram.com/zolva_motors" target="_blank" rel="noopener">Instagram zolva_motors</a><span class="foot-dato"><a class="foot-red" href="https://wa.me/5491124952513" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 2.1.55 4.15 1.6 5.96L2 22l4.25-1.11a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C20.95 6.45 16.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.05-1.14.28-3.68-.77-3.11-1.29-5.09-4.48-5.24-4.69-.15-.2-1.25-1.66-1.25-3.16 0-1.5.79-2.24 1.07-2.55.27-.3.6-.38.8-.38.2 0 .4 0 .58.01.19.01.44-.07.68.52.24.6.83 2.06.9 2.21.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2.01.96.3.15.5.22.57.35.07.13.07.73-.17 1.4Z"/></svg> +54&nbsp;9&nbsp;11&nbsp;2495&nbsp;2513</a><button class="copy" type="button" data-copy="+54 9 11 2495 2513" data-aviso="Número copiado">Copiar</button></span><span class="foot-dato"><a class="foot-red" href="mailto:zolvamotors@gmail.com">zolvamotors@gmail.com</a><button class="copy" type="button" data-copy="zolvamotors@gmail.com" data-aviso="Mail copiado">Copiar</button></span></div>
       <p>© 2026 Zolva. Todos los derechos reservados.</p>
       <p class="pie-aclara">Los precios están expresados en dólares estadounidenses. Los vehículos publicados pertenecen a sus titulares; actuamos como intermediarios.</p>
     </div>

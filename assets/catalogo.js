@@ -146,7 +146,7 @@
       '<a class="auto-link" href="' + a.url + '" aria-label="Ver ficha de ' + esc(a.nombre) + '">' +
         '<div class="auto-foto">' + badge +
           '<img src="' + a.foto.replace(/^\//, '') + '" alt="' + esc(a.nombre) + '" width="800" height="600"' +
-          (i < 4 ? '' : ' loading="lazy"') + ' decoding="async">' +
+          (i < 4 ? '' : ' loading="lazy"') + ' decoding="async" onload="this.classList.add(\'ok\')" onerror="this.classList.add(\'ok\')">' +
         '</div>' +
         '<div class="auto-cuerpo">' +
           '<p class="auto-marca">' + esc(a.marca) + '</p>' +
@@ -169,6 +169,69 @@
     return mejor && mejorN > 0 ? { filtro: mejor, n: mejorN } : null;
   }
 
+  /* ============ reacomodo (FLIP) ============
+     Al filtrar, las tarjetas que salen se desvanecen en su lugar; las
+     que quedan viajan a su posición nueva (de un lugar a otro:
+     ease-in-out) y las que entran aparecen con un fundido corto. Se
+     reutilizan los nodos: una foto que ya bajó no se vuelve a pedir. */
+  var EASE_IO = 'cubic-bezier(.77,0,.175,1)';
+  var EASE_OUT = 'cubic-bezier(.23,1,.32,1)';
+  function reacomodar(res) {
+    var previos = {}, rects = {};
+    [].forEach.call(grilla.children, function (n) {
+      var c = n.getAttribute('data-codigo');
+      if (!c) return;
+      previos[c] = n;
+      rects[c] = n.getBoundingClientRect();
+    });
+    var quedan = {};
+    res.forEach(function (a) { quedan[a.codigo] = true; });
+    var animar = !reduce && !!grilla.animate && !grilla.hidden;
+    var g = grilla.getBoundingClientRect();
+
+    Object.keys(previos).forEach(function (c) {
+      if (quedan[c]) return;
+      var n = previos[c], r = rects[c];
+      n.removeAttribute('data-codigo');
+      if (!animar) { n.remove(); return; }
+      n.style.cssText += ';position:absolute;margin:0;pointer-events:none;left:' + (r.left - g.left) +
+        'px;top:' + (r.top - g.top) + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
+      n.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(.97)' }],
+        { duration: 180, easing: EASE_OUT, fill: 'forwards' });
+      /* Por tiempo y no por onfinish: si el navegador frena los frames
+         (pestaña oculta), el evento no llega y la tarjeta quedaría. */
+      setTimeout(function () { n.remove(); }, 220);
+    });
+
+    var frag = document.createDocumentFragment(), nuevos = [];
+    res.forEach(function (a, i) {
+      var n = previos[a.codigo];
+      if (!n) {
+        var tmp = document.createElement('div');
+        tmp.innerHTML = tarjeta(a, i);
+        n = tmp.firstChild;
+        nuevos.push(n);
+      }
+      frag.appendChild(n);
+    });
+    grilla.insertBefore(frag, grilla.firstChild);
+    if (!animar) return;
+
+    res.forEach(function (a) {
+      var n = previos[a.codigo], r0 = rects[a.codigo];
+      if (!n || !r0) return;
+      var r1 = n.getBoundingClientRect();
+      var dx = r0.left - r1.left, dy = r0.top - r1.top;
+      if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+      n.animate([{ transform: 'translate(' + dx + 'px,' + dy + 'px)' }, { transform: 'none' }],
+        { duration: 320, easing: EASE_IO });
+    });
+    nuevos.forEach(function (n, k) {
+      n.animate([{ opacity: 0, transform: 'scale(.97)' }, { opacity: 1, transform: 'none' }],
+        { duration: 240, delay: 80 + Math.min(k, 6) * 40, easing: EASE_OUT, fill: 'backwards' });
+    });
+  }
+
   function pintar(estado) {
     var res = filtrar(estado).sort(ORDENES[estado.orden] || ORDENES.recientes);
 
@@ -180,7 +243,7 @@
     }
 
     if (res.length) {
-      grilla.innerHTML = res.map(tarjeta).join('');
+      reacomodar(res);
       grilla.hidden = false;
       if (sinRes) sinRes.hidden = true;
     } else {

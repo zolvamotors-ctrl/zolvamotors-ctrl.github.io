@@ -81,10 +81,43 @@
     if (next) next.disabled = actual === total - 1;
   }
 
+  /* Flechas, miniaturas y teclado: el desplazamiento usa la curva de
+     panel (ease-drawer). El dedo sigue con el scroll nativo y su
+     scroll-snap, que conserva la inercia. */
+  function bezier(x1, y1, x2, y2) {
+    return function (t) {
+      var u = t;
+      for (var k = 0; k < 8; k++) {
+        var x = 3 * (1 - u) * (1 - u) * u * x1 + 3 * (1 - u) * u * u * x2 + u * u * u - t;
+        var dx = 3 * (1 - u) * (1 - u) * x1 + 6 * (1 - u) * u * (x2 - x1) + 3 * u * u * (1 - x2);
+        if (Math.abs(x) < 1e-4 || !dx) break;
+        u = Math.max(0, Math.min(1, u - x / dx));
+      }
+      return 3 * (1 - u) * (1 - u) * u * y1 + 3 * (1 - u) * u * u * y2 + u * u * u;
+    };
+  }
+  var drawer = bezier(0.32, 0.72, 0, 1);
+  var animando = null, cierre = null;
+  function deslizar(x) {
+    if (animando) cancelAnimationFrame(animando);
+    clearTimeout(cierre);
+    if (reduce) { track.scrollLeft = x; return; }
+    var x0 = track.scrollLeft, t0 = performance.now(), dur = 420;
+    var fin = function () { animando = null; track.scrollLeft = x; track.style.scrollSnapType = ''; };
+    track.style.scrollSnapType = 'none';
+    animando = requestAnimationFrame(function paso(now) {
+      var t = Math.min(1, (now - t0) / dur);
+      track.scrollLeft = x0 + (x - x0) * drawer(t);
+      if (t < 1) animando = requestAnimationFrame(paso); else fin();
+    });
+    /* Si el navegador frena los frames (pestaña oculta), igual llega. */
+    cierre = setTimeout(function () { if (animando) { cancelAnimationFrame(animando); fin(); } }, dur + 150);
+  }
+
   function ir(i) {
     var destino = slides[Math.max(0, Math.min(total - 1, i))];
     if (!destino) return;
-    track.scrollTo({ left: destino.offsetLeft - track.offsetLeft, behavior: reduce ? 'auto' : 'smooth' });
+    deslizar(destino.offsetLeft - track.offsetLeft);
     marcar(i);
   }
 
@@ -152,6 +185,19 @@
       if (e.target === dlg || e.target.classList.contains('lightbox-in')) cerrar();
     });
 
+    /* En la vista ampliada se desliza con el dedo: alcanza con un gesto
+       rápido aunque sea corto (velocidad > 0,11 px/ms). */
+    var lbImg = dlg.querySelector('img'), px = null, pt = 0;
+    lbImg.style.touchAction = 'pan-y';
+    lbImg.addEventListener('pointerdown', function (e) { px = e.clientX; pt = performance.now(); });
+    lbImg.addEventListener('pointerup', function (e) {
+      if (px === null) return;
+      var dx = e.clientX - px, v = Math.abs(dx) / Math.max(1, performance.now() - pt);
+      px = null;
+      if (Math.abs(dx) > 50 || (Math.abs(dx) > 12 && v > 0.11)) mostrar(actual + (dx < 0 ? 1 : -1));
+    });
+    lbImg.addEventListener('pointercancel', function () { px = null; });
+
     dlg.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight') { e.preventDefault(); mostrar(actual + 1); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); mostrar(actual - 1); }
@@ -178,6 +224,10 @@
     var img = dlg.querySelector('img');
     img.src = fuente.currentSrc || fuente.src;
     img.alt = fuente.alt;
+    if (!reduce && img.animate) {
+      img.animate([{ opacity: 0.35, filter: 'blur(2px)' }, { opacity: 1, filter: 'blur(0)' }],
+        { duration: 240, easing: 'cubic-bezier(.23,1,.32,1)' });
+    }
     var n = dlg.querySelector('#lbN');
     if (n) n.textContent = String(i + 1);
     marcar(i);
@@ -190,6 +240,7 @@
     img.setAttribute('tabindex', '0');
     img.setAttribute('role', 'button');
     img.setAttribute('aria-haspopup', 'dialog');
+    img.setAttribute('aria-label', 'Ampliar foto — ' + img.alt);
     var abrir = function () {
       crear();
       if (typeof dlg.showModal !== 'function') return; // navegador viejo: se queda con la galería

@@ -1,6 +1,7 @@
 (function () {
   'use strict';
-  document.documentElement.classList.add('js');
+  /* La clase .js la agrega el bloque de movimiento (al final del archivo),
+     después de marcar lo que ya está en pantalla: así nada parpadea. */
 
   /* ============================================================
      CONFIGURACIÓN
@@ -72,47 +73,14 @@
     });
   });
 
-  /* ============ NAV: borde al scrollear · progreso · flotantes ============ */
-  var progress = $('progress');
-  var waFloat = document.querySelector('.wa-float');
-  var toTop = $('toTop');
-
-  function onScroll() {
-    var y = window.scrollY;
-    if (nav) nav.classList.toggle('scrolled', y > 8);
-    if (progress) {
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      var r = h > 0 ? y / h : 0;
-      progress.style.transform = 'scaleX(' + Math.min(1, Math.max(0, r)) + ')';
-    }
-    if (waFloat) waFloat.classList.toggle('show', y > 700);
-    if (toTop) toTop.classList.toggle('show', y > 1000);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll, { passive: true });
-
-  if (toTop) toTop.addEventListener('click', function () { irA('top', false); });
-  onScroll();
+  /* El borde de la nav al scrollear vive en el loop único de movimiento
+     (al final del archivo): un solo requestAnimationFrame para todo. */
 
   /* El link activo del nav ya viene marcado desde el build con
      class="active" y aria-current="page": ahora que el sitio tiene
      varias páginas, no hace falta calcularlo por scroll. */
 
-  /* ============ Aparición progresiva ============ */
-  var revealables = [].slice.call(document.querySelectorAll('[data-reveal]'));
-  if (reduce || !('IntersectionObserver' in window)) {
-    revealables.forEach(function (el) { el.classList.add('in'); });
-  } else {
-    var revObs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) {
-          en.target.classList.add('in');
-          revObs.unobserve(en.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
-    revealables.forEach(function (el) { revObs.observe(el); });
-  }
+  /* La aparición progresiva vive en el bloque de movimiento, al final. */
 
   /* ============ Calculadora de comisión ============ */
   var slider = $('precio');
@@ -214,6 +182,9 @@
   var resumenMsg = $('resumenMsg');
   var wa = $('waLink');
   var submitBtn = $('submitBtn');
+  /* El veredicto y el resumen cambian sin recargar: se anuncian. */
+  if (ver) { ver.setAttribute('role', 'status'); ver.setAttribute('aria-live', 'polite'); }
+  if (resumenMsg) resumenMsg.setAttribute('aria-live', 'polite');
 
   var LABELS = {
     nombre: 'Nombre', whatsapp: 'WhatsApp', email: 'Email',
@@ -329,27 +300,15 @@
       return;
     }
 
-    var anio = parseInt($('anio').value, 10);
-    var km = parseInt($('km').value, 10);
-    var pre = parseInt($('pretendido').value, 10);
-    var obs = [];
-    if (anio < 2013) obs.push('el año es anterior a 2013');
-    if (km > 150000) obs.push('supera los 150.000 km');
-    if (pre < 7000) obs.push('el valor está por debajo de US$ 7.000');
+    /* Sin requisitos de año, km ni precio desde el 21/09/2026 (confirmado
+       por Nacho el 22/10/2026): cada auto se mira caso por caso. El campo
+       `veredicto` se sigue mandando a la planilla para no correr columnas,
+       pero ya no evalúa nada; el resumen de WhatsApp no lo lleva. */
+    var veredictoTxt = 'Se revisa caso por caso';
+    ver.className = 'show ok';
+    ver.innerHTML = '<b>Lo revisamos caso por caso</b>Te contactamos dentro de las 24 horas hábiles para coordinar la tasación sin cargo.';
 
-    var veredictoTxt;
-    if (obs.length) {
-      var motivo = obs.length > 1 ? obs.slice(0, -1).join(', ') + ' y ' + obs[obs.length - 1] : obs[0];
-      veredictoTxt = 'Fuera del perfil habitual (' + motivo + '). Se revisa caso por caso.';
-      ver.className = 'show rev';
-      ver.innerHTML = '<b>Lo miramos caso por caso</b>Tu auto queda fuera de nuestro perfil habitual porque ' + motivo + '. Igual lo revisamos y te respondemos: tomamos excepciones cuando la unidad lo justifica.';
-    } else {
-      veredictoTxt = 'Cumple los tres criterios de admisión.';
-      ver.className = 'show ok';
-      ver.innerHTML = '<b>Tu auto entra en nuestro perfil</b>Cumple los tres criterios de admisión. Te contactamos dentro de las 24 horas hábiles para coordinar la tasación sin cargo.';
-    }
-
-    var texto = armarResumen(veredictoTxt);
+    var texto = armarResumen('');
     var data = recolectar(veredictoTxt);
 
     resTxt.textContent = texto;
@@ -455,4 +414,272 @@
      de la página: la persona ya empezó a completar. */
   var pendiente = document.getElementById('modelo');
   if (pendiente && !pendiente.value) pendiente.focus({ preventScroll: true });
+})();
+
+/* ============================================================
+   MOVIMIENTO
+   ------------------------------------------------------------
+   Técnica de referencias/hiagentik-referencia.html con la paleta
+   de Zolva: reveals que solo ocultan lo que todavía no se vio, un
+   solo requestAnimationFrame para todo lo que depende del scroll,
+   la línea de los pasos, el rodillo del 4 %, los niveles de los
+   planes, copiar, la pausa del fondo y el estado del cotizador.
+   Con prefers-reduced-motion todo queda visible y quieto.
+   ============================================================ */
+(function movimiento() {
+  'use strict';
+  var root = document.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hayIO = 'IntersectionObserver' in window;
+  var EASE_OUT = 'cubic-bezier(.23,1,.32,1)';
+  var $$ = function (s, c) { return [].slice.call((c || document).querySelectorAll(s)); };
+  var clamp = function (v) { return Math.min(1, Math.max(0, v)); };
+
+  function enPantalla(el) {
+    var r = el.getBoundingClientRect();
+    return r.top < window.innerHeight && r.bottom > 0;
+  }
+  function alVer(els, fn, umbral) {
+    if (!hayIO) { els.forEach(fn); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { fn(e.target); io.unobserve(e.target); } });
+    }, { threshold: umbral || 0.15, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---- Reveals ------------------------------------------------
+     Lo que ya está en pantalla se marca ANTES de poner .js: se ve
+     de entrada y no parpadea. Lo demás entra con 70 ms entre
+     hermanos. Terminada la entrada se saca el atributo y el
+     elemento recupera sus propias transiciones (hover, bordes). */
+  /* Páginas fijas: el mismo sistema de entradas sin tocar su HTML.
+     Las legales (su h1 no lleva .split) quedan quietas a propósito. */
+  if (document.querySelector('.pag-head h1.split')) {
+    $$('main > section .sec-head, main .prosa > h2, main .prosa > h3, main .prosa > p, main .prosa > ul,' +
+      ' main .prosa > ol, main .prosa > .dato, main .faq > details, main .form-aside, main .tabla-wrap,' +
+      ' main .accesos-grid > a, main .contacto-datos > div, main .aside-wa').forEach(function (el) {
+      if (!el.hasAttribute('data-reveal') && !(el.parentNode && el.parentNode.closest('[data-reveal]'))) {
+        el.setAttribute('data-reveal', '');
+      }
+    });
+  }
+  var reveals = $$('[data-reveal]');
+  var soltar = function (el) { el.removeAttribute('data-reveal'); };
+  reveals.forEach(function (el) { if (reduce || enPantalla(el)) el.classList.add('in'); });
+  root.classList.add('js');
+  reveals.forEach(function (el) { if (el.classList.contains('in')) soltar(el); });
+  /* Escalonado: los que entran en la misma tanda del observer salen con
+     70 ms entre uno y otro (tope 6). El --d que trae el build se respeta. */
+  var tanda = 0, tandaT = null;
+  alVer(reveals.filter(function (el) { return !el.classList.contains('in'); }), function (el) {
+    if (!el.style.getPropertyValue('--d')) {
+      el.style.setProperty('--d', String(Math.min(tanda++, 6)));
+      clearTimeout(tandaT);
+      tandaT = setTimeout(function () { tanda = 0; }, 50);
+    }
+    el.classList.add('in');
+    var d = parseFloat(el.style.getPropertyValue('--d')) || 0;
+    setTimeout(function () { soltar(el); }, 900 + d * 70);
+  });
+
+  /* ---- La línea de los pasos ----------------------------------
+     k = cuánto del bloque ya pasó por el 72 % de la pantalla. Cada
+     paso enciende al llegar su turno y llena su tramo (--sp). */
+  var pasos = $$('[data-steps]');
+  if (reduce) pasos.forEach(function (ol) { ol.classList.add('resuelto'); });
+  function pasosFrame() {
+    var vh = window.innerHeight;
+    pasos.forEach(function (ol) {
+      var r = ol.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) return;
+      var k = clamp((vh * 0.72 - r.top) / (r.height * 0.85));
+      var items = ol.children, n = items.length;
+      for (var i = 0; i < n; i++) {
+        var sp = clamp(k * n - i).toFixed(3);
+        if (items[i]._sp !== sp) { items[i]._sp = sp; items[i].style.setProperty('--sp', sp); }
+        items[i].classList.toggle('lit', k > i / n + 0.02);
+      }
+    });
+  }
+
+  /* ---- El circuito de la plata (Cómo funciona) ----------------
+     Escena pegajosa ligada al scroll. Filas = movimientos de plata;
+     columnas = comprador, dueño y Zolva. La seña y el saldo van del
+     comprador al dueño (Zolva solo verifica el comprobante) y recién
+     al final la comisión va del dueño a Zolva. Sin horas ni plazos.
+     Con movimiento reducido no se activa: queda el esquema quieto y
+     resuelto, con los pasos en una lista. */
+  var circuitoFrame = null;
+  (function () {
+    var sec = document.getElementById('circuito');
+    if (!sec || reduce) return;
+    var pista = sec.querySelector('.plata-pista'), stage = sec.querySelector('.plata-stage');
+    var filas = $$('.plata-fila', sec), cap = sec.querySelector('.plata-cap');
+    var saltear = sec.querySelector('.plata-saltear'), lista = sec.querySelector('.plata-pasos');
+    var textos = $$('.plata-pasos li', sec).map(function (li) { return li.textContent; });
+    if (!pista || !stage || !cap || !saltear || !lista || !filas.length || textos.length < 4) return;
+    sec.classList.add('vivo');
+    lista.classList.add('sr-only');
+    saltear.hidden = false;
+    var TRAMOS = [[0.08, 0.26, 0.30], [0.38, 0.56, 0.60], [0.68, 0.86, 2]];
+    var CAPS = [[0, 0], [0.30, 1], [0.38, 0], [0.60, 1], [0.68, 2], [0.90, 3]];
+    var suave = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+    var capAct = 0, tok = 0;
+    cap.textContent = textos[0];
+    function ponerCap(i) {
+      if (i === capAct) return;
+      capAct = i;
+      var t = ++tok;
+      cap.classList.add('swap');
+      setTimeout(function () { if (t !== tok) return; cap.textContent = textos[i]; cap.classList.remove('swap'); }, 200);
+    }
+    var navEl = document.querySelector('.nav');
+    function medida() {
+      return {
+        navH: navEl ? navEl.offsetHeight : 0,
+        span: Math.max(1, pista.offsetHeight - stage.offsetHeight),
+        top: pista.getBoundingClientRect().top,
+        alto: pista.offsetHeight
+      };
+    }
+    circuitoFrame = function () {
+      var m = medida();
+      if (m.top > window.innerHeight + 100 || m.top + m.alto < -100) return;
+      var p = clamp((m.navH - m.top) / m.span);
+      var W = filas[0].clientWidth;
+      var anchos = filas.map(function (f) { return f.querySelector('.ficha').offsetWidth; });
+      filas.forEach(function (f, i) {
+        var tr = TRAMOS[i], ficha = f.querySelector('.ficha'), ok = f.querySelector('.plata-ok');
+        var de = +f.getAttribute('data-de'), a = +f.getAttribute('data-a');
+        var x0 = W * (de * 2 + 1) / 6 - anchos[i] / 2, x1 = W * (a * 2 + 1) / 6 - anchos[i] / 2;
+        var q = clamp((p - tr[0]) / (tr[1] - tr[0]));
+        ficha.style.transform = 'translateX(' + (x0 + (x1 - x0) * suave(q)).toFixed(1) + 'px)';
+        f.classList.toggle('llego', q >= 1);
+        if (ok) ok.classList.toggle('on', p >= tr[2]);
+      });
+      var k = 0;
+      CAPS.forEach(function (c) { if (p >= c[0]) k = c[1]; });
+      ponerCap(k);
+      saltear.classList.toggle('gone', p >= 0.92);
+    };
+    saltear.addEventListener('click', function () {
+      var m = medida();
+      var destino = m.top + window.scrollY - m.navH + m.span * 0.96, y0 = window.scrollY;
+      window.scrollTo({ top: destino, behavior: 'smooth' });
+      setTimeout(function () { if (Math.abs(window.scrollY - y0) < 4) window.scrollTo(0, destino); }, 900);
+    });
+  })();
+
+  /* ---- Un solo rAF para todo lo que depende del scroll -------- */
+  var nav = document.querySelector('.nav');
+  var pedido = false;
+  function frame() {
+    pedido = false;
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 8);
+    if (!reduce && pasos.length) pasosFrame();
+    if (circuitoFrame) circuitoFrame();
+  }
+  function alScroll() { if (!pedido) { pedido = true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', alScroll, { passive: true });
+  var rz;
+  window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(alScroll, 120); });
+  window.addEventListener('load', alScroll);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alScroll);
+  frame();
+
+  /* ---- Rodillo de dígitos (el 4 %) ----------------------------
+     Los dígitos suben de a uno, con desenfoque; el recuadro no
+     cambia de ancho. No cuenta desde 0. */
+  var rodillos = $$('.roll');
+  rodillos.forEach(function (el) {
+    var txt = el.textContent.trim();
+    el.innerHTML = txt.split('').map(function (c) {
+      return '<span class="rd" aria-hidden="true"><i>' + c + '</i></span>';
+    }).join('') + '<span class="sr-only">' + txt + '</span>';
+  });
+  var rodar = function (el) {
+    el.classList.add('rodo');
+    if (reduce || !el.animate) return;
+    $$('.rd > i', el).forEach(function (d, k) {
+      d.animate([
+        { transform: 'translateY(70%)', opacity: 0, filter: 'blur(4px)' },
+        { transform: 'none', opacity: 1, filter: 'blur(0)' }
+      ], { duration: 560, delay: 120 + k * 60, easing: EASE_OUT, fill: 'backwards' });
+    });
+  };
+  if (reduce) rodillos.forEach(rodar); else alVer(rodillos, rodar, 0.6);
+
+  /* ---- Niveles de los planes: se encienden de a uno ----------- */
+  $$('.lights').forEach(function (l) {
+    var n = parseInt(l.getAttribute('data-lit'), 10) || 0;
+    var luces = $$('span', l).slice(0, n);
+    var prender = function () {
+      luces.forEach(function (s, i) {
+        if (reduce) s.classList.add('lit');
+        else setTimeout(function () { s.classList.add('lit'); }, 250 + i * 220);
+      });
+    };
+    if (reduce) prender(); else alVer([l], prender, 0.6);
+  });
+
+  /* ---- Copiar WhatsApp y mail ---------------------------------
+     Si el portapapeles falla (http, permisos), selecciona el dato
+     para que se copie a mano. El aviso va por aria-live. */
+  var aviso = document.getElementById('copyStatus');
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.copy');
+    if (!btn) return;
+    var valor = btn.getAttribute('data-copy') || '';
+    var vuelta = function () { btn.textContent = 'Copiar'; btn.classList.remove('ok'); };
+    var hecho = function () {
+      btn.textContent = 'Copiado'; btn.classList.add('ok');
+      if (aviso) { aviso.textContent = ''; aviso.textContent = btn.getAttribute('data-aviso') || 'Copiado'; }
+      clearTimeout(btn._t); btn._t = setTimeout(vuelta, 1600);
+    };
+    var seleccionar = function () {
+      var el = btn.previousElementSibling;
+      if (el) {
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      }
+      btn.textContent = 'Seleccionado';
+      clearTimeout(btn._t); btn._t = setTimeout(vuelta, 1600);
+    };
+    try { navigator.clipboard.writeText(valor).then(hecho, seleccionar); } catch (err) { seleccionar(); }
+  });
+
+  /* ---- Pausa del fondo del hero -------------------------------
+     Los brillos derivan más de 5 s: se pueden frenar, y se frenan
+     solos fuera de pantalla o con la pestaña oculta. */
+  $$('.hero').forEach(function (h) {
+    var fx = h.querySelector('.fx'), btn = h.querySelector('.fx-pausa');
+    if (!fx || !btn || reduce) return;
+    btn.hidden = false;
+    var manual = false, fuera = false;
+    var aplicar = function () { fx.classList.toggle('pausado', manual || fuera || document.hidden); };
+    btn.addEventListener('click', function () {
+      manual = !manual;
+      btn.setAttribute('aria-pressed', String(manual));
+      btn.querySelector('.fx-pausa-t').textContent = manual ? 'Reanudar movimiento' : 'Pausar movimiento';
+      aplicar();
+    });
+    if (hayIO) new IntersectionObserver(function (es) { fuera = !es[0].isIntersecting; aplicar(); }).observe(h);
+    document.addEventListener('visibilitychange', aplicar);
+  });
+
+  /* ---- Cotizador del hero: estado mientras abre el formulario --
+     El envío no cambia: sigue siendo un GET a consigna-tu-auto. */
+  $$('form.tasa-card').forEach(function (f) {
+    var b = f.querySelector('button[type=submit]');
+    var l = b && b.querySelector('.btn-label');
+    if (!l) return;
+    var txt = l.textContent;
+    f.addEventListener('submit', function () {
+      b.classList.add('loading'); b.setAttribute('aria-busy', 'true');
+      l.textContent = 'Abriendo el formulario…';
+    });
+    window.addEventListener('pageshow', function () {
+      b.classList.remove('loading'); b.removeAttribute('aria-busy'); l.textContent = txt;
+    });
+  });
 })();
