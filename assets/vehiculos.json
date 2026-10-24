@@ -81,7 +81,7 @@
   },
   {
     "codigo": "ZM-0003",
-    "estado": "reservado",
+    "estado": "vendido",
     "destacado": false,
     "plan": "esencial",
     "marca": "Citroën",
@@ -103,7 +103,7 @@
     "provincia": "Buenos Aires",
     "documentacion": null,
     "fecha_publicacion": "2026-09-24",
-    "fecha_venta": null,
+    "fecha_venta": "2026-10-24",
     "descripcion": "Citroën C4 Grand Picasso 1.6 HDi – 2013\nMonovolumen de 7 plazas equipado con motor turbodiésel 1.6 HDi de 110 CV, caja manual de 6 velocidades y tracción delantera. Cuenta con amplio espacio interior, tres filas de asientos y un baúl de capacidad variable según la configuración de los asientos.\n\n- Único dueño\n- 167.000 km\n- Service hecho en tiempo y forma\n- Distribución hecha\n- Impecable estado",
     "fotos": [
       "/assets/autos/zm-0003/01.webp",
@@ -160,5 +160,46 @@
       "/assets/autos/zm-0004/11.webp"
     ],
     "foto_portada": "/assets/autos/zm-0004/01.webp"
+  },
+  {
+    "codigo": "ZM-0005",
+    "estado": "disponible",
+    "destacado": false,
+    "plan": "esencial",
+    "marca": "Ford",
+    "modelo": "EcoSport",
+    "version": "Titanium 1.6",
+    "anio": 2014,
+    "km": 114000,
+    "combustible": "Nafta",
+    "transmision": "Manual",
+    "carroceria": "SUV",
+    "puertas": 5,
+    "motor": "1.6",
+    "traccion": "Delantera",
+    "color": "Blanco",
+    "precio_usd": 9000,
+    "acepta_permuta": false,
+    "localidad": "Nordelta / General Pacheco",
+    "partido": "Tigre",
+    "provincia": "Buenos Aires",
+    "documentacion": null,
+    "fecha_publicacion": "2026-10-24",
+    "fecha_venta": null,
+    "descripcion": "Ford EcoSport Titanium 1.6 nafta, año 2014. Una SUV ideal para el día a día, cómoda, confiable y lista para disfrutar.\n\n- Motor 1.6 nafta\n- Caja manual\n- 114.000 kilómetros\n- Único dueño de fábrica\n- Service al día\n- Lista para transferir\n\nUnidad muy bien cuidada, con historial de mantenimiento y lista para su próximo dueño.",
+    "fotos": [
+      "/assets/autos/zm-0005/01.webp",
+      "/assets/autos/zm-0005/02.webp",
+      "/assets/autos/zm-0005/03.webp",
+      "/assets/autos/zm-0005/04.webp",
+      "/assets/autos/zm-0005/05.webp",
+      "/assets/autos/zm-0005/06.webp",
+      "/assets/autos/zm-0005/07.webp",
+      "/assets/autos/zm-0005/08.webp",
+      "/assets/autos/zm-0005/09.webp",
+      "/assets/autos/zm-0005/10.webp",
+      "/assets/autos/zm-0005/11.webp"
+    ],
+    "foto_portada": "/assets/autos/zm-0005/01.webp"
   }
 ]
