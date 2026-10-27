@@ -28,6 +28,20 @@
   var nav = document.querySelector('.nav');
   var navH = function () { return nav ? nav.offsetHeight : 64; };
 
+  /* ============ PÍXEL DE META: eventos ============
+     El código base (PageView) lo inyecta el build en el <head> si hay
+     `meta_pixel_id` en config.js. Acá solo se disparan los eventos:
+       Lead    → formulario de tasación enviado (pasó la validación)
+       Contact → clic en cualquier enlace a WhatsApp
+     Si el píxel no cargó (bloqueador, sin ID), no pasa nada. */
+  function pixel(evento, datos) {
+    try { if (typeof window.fbq === 'function') window.fbq('track', evento, datos || {}); } catch (e) { /* sin píxel */ }
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me/"]') : null;
+    if (a) pixel('Contact', { content_name: 'WhatsApp' });
+  });
+
   /* ============ NAV: menú móvil ============ */
   var navToggle = $('navToggle');
   var navLinks = $('navLinks');
@@ -310,6 +324,7 @@
 
     var texto = armarResumen('');
     var data = recolectar(veredictoTxt);
+    pixel('Lead', { content_name: 'Formulario de tasación' });
 
     resTxt.textContent = texto;
     wa.href = 'https://wa.me/' + WA_NUMERO + '?text=' + encodeURIComponent(texto);

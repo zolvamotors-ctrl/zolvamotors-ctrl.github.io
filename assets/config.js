@@ -55,6 +55,12 @@ var SITE_CONFIG = {
     respuesta:         'Respondemos dentro de las 24 horas hábiles.'
   },
 
+  /* ---- Píxel de Meta ---------------------------------------
+     ID del píxel del Administrador de eventos de Meta (27/10/2026).
+     El build lo inyecta en el <head> de todas las páginas y app.js
+     dispara los eventos (Lead, Contact). Vacío = sin píxel.     */
+  meta_pixel_id: '2174834630073085',
+
   /* ---- Condiciones comerciales ------------------------------
      Estos números salen del contrato. Cambiarlos acá cambia
      todos los textos generados; no los toques sin revisar
